@@ -29,6 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -64,4 +65,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function perfilEmpresa()
+{
+    return $this->hasOne(PerfilEmpresa::class);
+}
+
+public function perfilCliente()
+{
+    return $this->hasOne(PerfilCliente::class);
+}
+
+public function mensajes()
+{
+    return $this->hasMany(MensajeSolicitud::class, 'remitente_id');
+}
+
+public function documentosSubidos()
+{
+    return $this->hasMany(DocumentoProyecto::class, 'subido_por');
+}
 }
