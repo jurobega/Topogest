@@ -12,7 +12,8 @@ class ServicioController extends Controller
      */
     public function index()
     {
-        //
+        $servicios = Servicio::orderBy('id' , 'desc')->get();
+        return view("servicios.inicio" , compact("servicios"));
     }
 
     /**
@@ -20,7 +21,7 @@ class ServicioController extends Controller
      */
     public function create()
     {
-        //
+        return view("servicios.nuevo");
     }
 
     /**
@@ -28,7 +29,9 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(self::rules());
+        Servicio::create($request->all());
+        return redirect()->route('servicios.index')->with('mensaje' , 'El Servicio se ha creado correctamente');
     }
 
     /**
@@ -61,5 +64,13 @@ class ServicioController extends Controller
     public function destroy(Servicio $servicio)
     {
         //
+    }
+
+
+    private static function rules(?int $id = null): array {
+        return [
+            'nombre' => ['required' , 'string' , 'min:3' , 'max:150' , 'unique:servicios,nombre,'.$id],
+            'descripcion' => ['required', 'string','min:3','max:151'],
+        ];
     }
 }
