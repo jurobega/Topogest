@@ -47,7 +47,7 @@ class ServicioController extends Controller
      */
     public function edit(Servicio $servicio)
     {
-        //
+        return view('servicios.editar',compact('servicio'));
     }
 
     /**
@@ -55,7 +55,10 @@ class ServicioController extends Controller
      */
     public function update(Request $request, Servicio $servicio)
     {
-        //
+        $request->validate(self::rules($servicio->id));
+        $servicio->update($request->all());
+        return redirect()->route('servicios.index')->with('mensaje' ,'Servicio Editado Correctamente');
+
     }
 
     /**
@@ -63,7 +66,8 @@ class ServicioController extends Controller
      */
     public function destroy(Servicio $servicio)
     {
-        //
+        $servicio->delete();
+        return redirect()->route('servicios.index')->with('mensaje' ,'Servicios Borrado Correctamente');
     }
 
 

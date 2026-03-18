@@ -13,15 +13,16 @@
 
             <div class="bg-white rounded-3xl shadow-2xl shadow-black/5 border border-gray-100 overflow-hidden">
                 <div class="h-2 bg-[#D4AF37]"></div>
-                    
+                
                 <div class="p-10">
                     <div class="mb-10">
                         <h2 class="text-3xl font-black text-[#2D1B0F] tracking-tighter">Registrar Servicio</h2>
                         <p class="text-sm text-[#8B7355] mt-2 font-medium">Introduce los datos técnicos para actualizar el catálogo oficial de GeoTerra.</p>
                     </div>
 
-                    <form action="{{ route('servicios.store') }}" method="POST" class="space-y-8">
+                    <form action="{{ route('servicios.update',$servicio) }}" method="POST" class="space-y-8">
                         @csrf
+                        @method('PUt')
                         <div class="group">
                             <label for="nombre" class="block text-[11px] uppercase tracking-[0.2em] font-black text-[#2D1B0F] mb-3 ml-1">
                                 Nombre del Servicio Técnico
@@ -29,7 +30,7 @@
                             <input type="text" 
                                    name="nombre" 
                                    id="nombre" 
-                                   value="{{ @old('nombre') }}"
+                                   value="{{ @old('nombre', $servicio->nombre)  }}"
                                    class="w-full bg-[#F5F5F0]/50 border-2 border-transparent focus:border-[#D4AF37] focus:bg-white focus:ring-0 rounded-2xl py-4 px-6 text-[#2D1B0F] font-semibold transition-all placeholder:text-gray-300 shadow-sm"
                                    placeholder="Ej: Levantamiento Fotogramétrico con Dron">
                                 <x-input-error for="nombre" />
@@ -45,7 +46,7 @@
                                       rows="6"
                                       class="w-full bg-[#F5F5F0]/50 border-2 border-transparent focus:border-[#D4AF37] focus:bg-white focus:ring-0 rounded-2xl py-4 px-6 text-[#2D1B0F] font-medium leading-relaxed transition-all placeholder:text-gray-300 shadow-sm"
                                       placeholder="Describe el alcance del servicio, metodología y entregables finales..."
-                                      >{{ @old('descripcion') }}</textarea>
+                                      >{{ @old('descripcion' , $servicio->descripcion) }}</textarea>
                                     <x-input-error for="descripcion" />
                         </div>
                         
