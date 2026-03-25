@@ -85,4 +85,14 @@ public function documentosSubidos()
 {
     return $this->hasMany(DocumentoProyecto::class, 'subido_por');
 }
+
+public function dashboardRoute(): string
+{
+    return match($this->role) {
+        'admin'   => route('admin.dashboard'),
+        'empresa' => route('empresa.dashboard'),
+        'cliente' => route('cliente.dashboard'),
+        default   => '/',
+    };
+}
 }

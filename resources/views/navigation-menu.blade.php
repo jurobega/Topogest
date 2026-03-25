@@ -2,29 +2,34 @@
     <nav x-data="{ open: false }"
         class="fixed left-0 top-0 h-screen w-64 bg-[#2D1B0F] text-white flex flex-col shadow-2xl z-50">
         <div class="shrink-0 flex items-center justify-center h-24 border-b border-[#3D2B1F]">
-            <a href="{{ route('dashboard') }}" class="flex flex-col items-center">
-                <x-application-mark class="block h-10 w-auto text-[#D4AF37] fill-current" />
-                <span class="mt-2 text-xs font-bold tracking-[0.2em] uppercase text-[#D4AF37]">TopoGest</span>
-            </a>
-        </div>
+    @auth
+        <a href="{{ Auth::user()->dashboardRoute() }}" class="flex flex-col items-center">
+            <x-application-mark class="block h-10 w-auto text-[#D4AF37] fill-current" />
+            <span class="mt-2 text-xs font-bold tracking-[0.2em] uppercase text-[#D4AF37]">TopoGest</span>
+        </a>
+    @else
+        <a href="{{ url('/') }}" class="flex flex-col items-center">
+            <x-application-mark class="block h-10 w-auto text-[#D4AF37] fill-current" />
+            <span class="mt-2 text-xs font-bold tracking-[0.2em] uppercase text-[#D4AF37]">TopoGest</span>
+        </a>
+    @endauth
+</div>
 
         <div class="flex-grow px-4 py-6 space-y-2 overflow-y-auto custom-scrollbar">
             <p class="text-[10px] uppercase tracking-widest text-[#8B7355] mb-4 px-2">Menú Principal</p>
-
-            <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')"
+            @auth
+            <x-nav-link href="{{ Auth::user()->dashboardRoute() }}" :active="request()->routeIs('*.dashboard')"
                 class="flex items-center px-4 py-3 text-sm rounded-xl transition-all duration-200 hover:bg-[#3D2B1F] group border-none !text-gray-300 hover:!text-white">
-                <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-[#D4AF37]' : 'text-[#8B7355]' }} group-hover:text-[#D4AF37]"
+                <svg class="w-5 h-5 mr-3 {{ request()->routeIs('*.dashboard') ? 'text-[#D4AF37]' : 'text-[#8B7355]' }} group-hover:text-[#D4AF37]"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 {{ __('Dashboard') }}
             </x-nav-link>
-            @auth
-                
             
             @if (Auth::user()->role == 'admin')
-                <x-nav-link href="{{ route('servicios.index') }}" :active="request()->routeIs('servicios.index')"
+                <x-nav-link href="{{ route('admin.servicios.index') }}" :active="request()->routeIs('admin.servicios.*')"
                     class="flex items-center px-4 py-3 text-sm rounded-xl transition-all duration-200 hover:bg-[#3D2B1F] group border-none !text-gray-300 hover:!text-white">
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-[#D4AF37]' : 'text-[#8B7355]' }} group-hover:text-[#D4AF37]"
                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,6 +39,7 @@
                     Servicios
                 </x-nav-link>
             @endif
+          
             @endauth
 
             {{-- Aquí irán tus futuros links de Clientes y Proyectos --}}
