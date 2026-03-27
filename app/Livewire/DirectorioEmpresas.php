@@ -8,11 +8,23 @@ use Livewire\Component;
 
 class DirectorioEmpresas extends Component
 {
+    public int $servicio_id = 0;
+    public string $provincia = "";
 
     public function render()
     {
-        $empresa = PerfilEmpresa::all();
+       $empresa = PerfilEmpresa::where('provincia' , 'like' , "%{$this->provincia}%")
+    ->when($this->servicio_id, function ($query) {
+        $query->whereHas('servicios', function ($q) {
+            $q->where('servicios.id', $this->servicio_id);
+        });
+    })
+    ->get();
         $servicios = Servicio::select('nombre' , 'id')->get();
         return view('livewire.directorio-empresas' , compact('servicios' , 'empresa'));
+    }
+
+    public function limpiar() {
+        $this->reset('servicio_id' , 'provincia');
     }
 }

@@ -17,6 +17,11 @@
 
         <div class="flex-grow px-4 py-6 space-y-2 overflow-y-auto custom-scrollbar">
             <p class="text-[10px] uppercase tracking-widest text-[#8B7355] mb-4 px-2">Menú Principal</p>
+            <x-nav-link href="{{ route('inicio') }}" :active="request()->routeIs('inicio')"
+                    class="flex items-center px-6 py-3 text-sm rounded-xl transition-all duration-200 hover:bg-[#3D2B1F] group border-none !text-gray-300 hover:!text-white">
+                    <i class="fa-solid fa-house mr-2"></i>
+                    Inicio
+            </x-nav-link>
             @auth
             <x-nav-link href="{{ Auth::user()->dashboardRoute() }}" :active="request()->routeIs('*.dashboard')"
                 class="flex items-center px-4 py-3 text-sm rounded-xl transition-all duration-200 hover:bg-[#3D2B1F] group border-none !text-gray-300 hover:!text-white">

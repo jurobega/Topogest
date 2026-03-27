@@ -47,7 +47,7 @@
     </div>
 </section>
 
-<div id="directorio" class="bg-[#F0F0EB] py-12">
+<div id="directorio" class="bg-[#F0F0EB] py-4">
     @livewire('directorio-empresas')
 </div>
 
