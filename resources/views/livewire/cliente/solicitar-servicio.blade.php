@@ -26,7 +26,8 @@
                     </div>
                 </div>
 
-                <form wire:submit.prevent="enviarSolicitud" class="p-8 space-y-6">
+                <form  class="p-8 space-y-6">
+                    @csrf
 
                     <div class="relative">
                         <label
@@ -99,7 +100,7 @@
                             Cancelar
                         </button>
 
-                        <button type="submit"
+                        <button type="submit" 
                             class="w-full flex-1 bg-slate-900 text-white py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] shadow-xl hover:bg-[#07CBBB] transition-all transform active:scale-95 flex items-center justify-center gap-3 group">
                             <span>Enviar Solicitud Técnica</span>
                             <svg class="w-4 h-4 text-[#07CBBB] group-hover:text-white transition-colors" fill="none"
