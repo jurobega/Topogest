@@ -39,7 +39,7 @@ Route::middleware([
         Route::get('/dashboard', function () {
             return view('cliente.dashboard');
         })->name('dashboard');
-        Route::get('solicitar-servicio', SolicitarServicio::class)->name('solicitar-servicio');
+        Route::get('solicitar-servicio/{empresa_id}', SolicitarServicio::class)->name('solicitar-servicio');
     });
  
 });

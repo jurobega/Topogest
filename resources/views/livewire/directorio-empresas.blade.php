@@ -106,7 +106,7 @@
             </div>
 
             <div class="lg:w-1/4 p-8 bg-[#FDFDFB] border-l border-gray-50 flex flex-col justify-center gap-4">
-                <a href="{{ route('cliente.solicitar-servicio') }}" class="w-full text-center bg-[#2D1B0F] text-[#D4AF37] py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] hover:bg-[#1A0F08] transition-all shadow-xl shadow-[#2D1B0F]/10 transform active:scale-95">
+                <a href="{{ route('cliente.solicitar-servicio' , $item->id) }}" class="w-full text-center bg-[#2D1B0F] text-[#D4AF37] py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] hover:bg-[#1A0F08] transition-all shadow-xl shadow-[#2D1B0F]/10 transform active:scale-95">
                     Solicitar Servicio
                 </a>
                 
