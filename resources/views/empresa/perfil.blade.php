@@ -154,7 +154,7 @@
                                 <p class="text-[13px] font-medium mt-3 leading-relaxed text-gray-300 italic">
                                     {{ $empresa->horario_atencion }}</p>
                             </div>
-                            <a href="{{ route('cliente.solicitar-servicio') }}"
+                            <a  href="{{ route('cliente.solicitar-servicio' , $empresa->id) }}"
                                 class="flex  text-center items-center justify-center w-full bg-[#D4AF37] text-[#2D1B0F] py-6 rounded-[25px] font-black text-[11px] uppercase tracking-[0.3em] shadow-[0_20px_50px_rgba(212,175,55,0.3)] hover:bg-white hover:shadow-2xl transition-all duration-300 transform active:scale-95 group">
                                 <span>Solicitar Presupuesto Técnico</span>
                             </a>

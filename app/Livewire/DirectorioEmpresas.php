@@ -5,9 +5,13 @@ namespace App\Livewire;
 use App\Models\PerfilEmpresa;
 use App\Models\Servicio;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class DirectorioEmpresas extends Component
 {
+
+    use WithPagination;
+    
     public int $servicio_id = 0;
     public string $provincia = "";
 
