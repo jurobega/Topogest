@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClienteMiddleware
@@ -15,6 +16,11 @@ class ClienteMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+  
+        if(Auth::user()->role !== "cliente"){
+            abort('403', 'Usuario NO Autorizado!!');
+        }
+
         return $next($request);
     }
 }

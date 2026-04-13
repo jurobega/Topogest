@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Cliente\DashboardClienteController;
+use App\Http\Controllers\Empresa\DashboardEmpresaController;
 use App\Http\Controllers\EmpresaPerfilController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Middleware\AdminMiddleware;
@@ -32,9 +33,7 @@ Route::middleware([
 
     // Panel Empresa
     Route::prefix('empresa')->name('empresa.')->middleware(EmpresaMiddleware::class)->group(function () {
-        Route::get('/dashboard', function () {
-            return view('empresa.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard' , [DashboardEmpresaController::class , 'index'])->name('dashboard');
     });
 
     // Panel Cliente

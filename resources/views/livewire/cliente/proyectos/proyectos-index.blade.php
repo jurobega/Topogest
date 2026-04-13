@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="relative w-full md:w-80 group">
-                    <input type="text" placeholder="BUSCAR PROYECTO..."
+                    <input type="text" placeholder="BUSCAR PROYECTO..." wire:model.live="buscar"
                         class="w-full bg-transparent border-b-2 border-[#2D1B0F]/10 py-2 pl-0 pr-8 focus:border-[#2D1B0F] focus:ring-0 transition-all text-xs font-black text-[#2D1B0F] placeholder-[#2D1B0F]/20 uppercase tracking-widest">
                     <i
                         class="fa-solid fa-search absolute right-0 top-3 text-[#2D1B0F]/20 group-focus-within:text-[#2D1B0F] transition-colors"></i>
@@ -102,139 +102,321 @@
 
     @if ($proyecto)
         <x-dialog-modal wire:model="mostrarProyectos" maxWidth="5xl">
-    <x-slot name="title">
-        <div class="flex flex-col md:flex-row justify-between items-start gap-4 pb-6 border-b border-[#2D1B0F]/10">
-            <div class="flex-1">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="h-[2px] w-8 bg-[#D4AF37]"></span>
-                    <p class="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.4em]">Expediente de Proyecto</p>
-                </div>
-                <h2 class="text-3xl font-black text-[#2D1B0F] uppercase tracking-tighter italic leading-none">
-                    {{ $proyecto->nombre }}
-                </h2>
-            </div>
+            <x-slot name="title">
+                <div
+                    class="flex flex-col md:flex-row justify-between items-start gap-4 pb-6 border-b border-[#2D1B0F]/10">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="h-[2px] w-8 bg-[#D4AF37]"></span>
+                            <p class="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.4em]">Expediente de
+                                Proyecto</p>
+                        </div>
+                        <h2 class="text-3xl font-black text-[#2D1B0F] uppercase tracking-tighter italic leading-none">
+                            {{ $proyecto->nombre }}
+                        </h2>
+                    </div>
 
-            <div @class([
-                'px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border-2 shadow-sm',
-                'bg-white border-gray-300 text-gray-400' => in_array($proyecto->estado, ['borrador', 'cerrado']),
-                'bg-amber-50 border-[#D4AF37] text-[#D4AF37]' => $proyecto->estado === 'pendiente_aceptacion',
-                'bg-green-50 border-green-500 text-green-600' => $proyecto->estado === 'activo',
-                'bg-blue-50 border-blue-500 text-blue-600' => $proyecto->estado === 'entregado',
-                'bg-red-50 border-red-500 text-red-600' => $proyecto->estado === 'rechazado',
-            ])>
-                {{ str_replace('_', ' ', $proyecto->estado) }}
-            </div>
-        </div>
-    </x-slot>
-
-    <x-slot name="content">
-        <div class="space-y-10 py-4">
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="md:col-span-2 space-y-4">
-                    <h3 class="text-[11px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2">
-                        <i class="fa-solid fa-file-lines text-[#8B7355]"></i> Memoria Descriptiva
-                    </h3>
-                    <div class="bg-[#F5F5F0] p-6 rounded-[25px] text-sm text-[#2D1B0F]/80 leading-relaxed italic border border-[#2D1B0F]/5">
-                        {{ $proyecto->descripcion ?: 'No hay una descripción detallada para este proyecto.' }}
+                    <div @class([
+                        'px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border-2 shadow-sm',
+                        'bg-white border-gray-300 text-gray-400' => in_array($proyecto->estado, [
+                            'borrador',
+                            'cerrado',
+                        ]),
+                        'bg-amber-50 border-[#D4AF37] text-[#D4AF37]' =>
+                            $proyecto->estado === 'pendiente_aceptacion',
+                        'bg-green-50 border-green-500 text-green-600' =>
+                            $proyecto->estado === 'activo',
+                        'bg-blue-50 border-blue-500 text-blue-600' =>
+                            $proyecto->estado === 'entregado',
+                        'bg-red-50 border-red-500 text-red-600' =>
+                            $proyecto->estado === 'rechazado',
+                    ])>
+                        {{ str_replace('_', ' ', $proyecto->estado) }}
                     </div>
                 </div>
+            </x-slot>
 
-                <div class="space-y-4">
-                    <h3 class="text-[11px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2">
-                        <i class="fa-solid fa-calendar text-[#8B7355]"></i> Plazos
-                    </h3>
-                    <div class="bg-white border border-[#2D1B0F]/10 p-5 rounded-[25px] space-y-4 shadow-sm">
-                        <div>
-                            <p class="text-[8px] font-black text-gray-400 uppercase italic">Fecha de Inicio</p>
-                            <p class="text-xs font-bold text-[#2D1B0F]">{{ $proyecto->fecha_inicio ? \Carbon\Carbon::parse($proyecto->fecha_inicio)->format('d/m/Y') : 'Pendiente' }}</p>
-                        </div>
-                        <div class="pt-3 border-t border-gray-50">
-                            <p class="text-[8px] font-black text-gray-400 uppercase italic">Finalización Prevista</p>
-                            <p class="text-xs font-black text-[#D4AF37]">{{ $proyecto->fecha_fin_prevista ? \Carbon\Carbon::parse($proyecto->fecha_fin_prevista)->format('d/m/Y') : 'Por definir' }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <x-slot name="content">
+                <div class="space-y-10 py-4">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="space-y-4">
-                    <h3 class="text-[11px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center justify-between">
-                        <span><i class="fa-solid fa-box-archive text-[#D4AF37] mr-2"></i> Entregables Finales</span>
-                    </h3>
-                    <div class="space-y-3">
-                        @forelse($proyecto->documentos->where('tipo', 'entregable') as $doc)
-                            <div class="flex items-center justify-between p-4 bg-[#2D1B0F] rounded-2xl shadow-lg group hover:scale-[1.02] transition-transform">
-                                <div class="flex items-center gap-3">
-                                    <i class="fa-solid fa-file-pdf text-[#D4AF37] text-lg"></i>
-                                    <span class="text-[10px] font-bold text-white uppercase tracking-tight truncate w-32 md:w-48">{{ $doc->nombre_archivo }}</span>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-2 space-y-4">
+                            <h3
+                                class="text-[11px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2">
+                                <i class="fa-solid fa-file-lines text-[#8B7355]"></i> Memoria Descriptiva
+                            </h3>
+                            <div
+                                class="bg-[#F5F5F0] p-6 rounded-[25px] text-sm text-[#2D1B0F]/80 leading-relaxed italic border border-[#2D1B0F]/5">
+                                {{ $proyecto->descripcion ?: 'No hay una descripción detallada para este proyecto.' }}
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3
+                                class="text-[11px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2">
+                                <i class="fa-solid fa-calendar text-[#8B7355]"></i> Plazos
+                            </h3>
+                            <div class="bg-white border border-[#2D1B0F]/10 p-5 rounded-[25px] space-y-4 shadow-sm">
+                                <div>
+                                    <p class="text-[8px] font-black text-gray-400 uppercase italic">Fecha de Inicio</p>
+                                    <p class="text-xs font-bold text-[#2D1B0F]">
+                                        {{ $proyecto->fecha_inicio ? \Carbon\Carbon::parse($proyecto->fecha_inicio)->format('d/m/Y') : 'Pendiente' }}
+                                    </p>
                                 </div>
-                                <a href="{{ Storage::url($doc->path) }}" download class="bg-[#D4AF37] text-[#2D1B0F] p-2 rounded-lg hover:bg-white transition-colors">
-                                    <i class="fa-solid fa-download text-xs"></i>
-                                </a>
+                                <div class="pt-3 border-t border-gray-50">
+                                    <p class="text-[8px] font-black text-gray-400 uppercase italic">Finalización
+                                        Prevista</p>
+                                    <p class="text-xs font-black text-[#D4AF37]">
+                                        {{ $proyecto->fecha_fin_prevista ? \Carbon\Carbon::parse($proyecto->fecha_fin_prevista)->format('d/m/Y') : 'Por definir' }}
+                                    </p>
+                                </div>
                             </div>
-                        @empty
-                            <p class="text-[10px] italic text-gray-400 p-4 border border-dashed border-gray-200 rounded-2xl text-center">No hay entregables disponibles aún.</p>
-                        @endforelse
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <h3 class="text-[11px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2">
-                        <i class="fa-solid fa-paperclip text-[#8B7355]"></i> Documentación Técnica
-                    </h3>
-                    <div class="space-y-2">
-                        @forelse($proyecto->documentos->where('tipo', '!=', 'entregable') as $doc)
-                            <div class="flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-xl">
-                                <i class="fa-solid fa-file text-gray-300 text-sm"></i>
-                                <span class="text-[10px] font-bold text-[#2D1B0F] uppercase tracking-tight opacity-70">{{ $doc->nombre_archivo }}</span>
-                            </div>
-                        @empty
-                            <p class="text-[10px] italic text-gray-400 p-4 text-center">No se han adjuntado otros documentos.</p>
-                        @endforelse
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white border-2 border-[#F5F5F0] rounded-[35px] p-8 relative overflow-hidden group">
-                <i class="fa-solid fa-building absolute -right-4 -bottom-4 text-8xl text-[#2D1B0F]/5 -rotate-12 transition-transform group-hover:rotate-0 group-hover:scale-110"></i>
-                <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div>
-                        <p class="text-[9px] font-black text-[#D4AF37] uppercase tracking-[0.3em] mb-2">Gabinete Responsable</p>
-                        <h4 class="text-xl font-black text-[#2D1B0F] uppercase tracking-tighter">{{ $proyecto->empresa->nombre_fiscal }}</h4>
-                    </div>
-                    <div class="flex gap-8">
-                        <div class="text-center md:text-left">
-                            <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest">Atención Telefónica</p>
-                            <p class="text-xs font-bold text-[#2D1B0F]">{{ $proyecto->empresa->telefono }}</p>
                         </div>
-                       
                     </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <h3
+                                class="text-[11px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center justify-between">
+                                <span><i class="fa-solid fa-box-archive text-[#D4AF37] mr-2"></i> Entregables
+                                    Finales</span>
+                            </h3>
+                            <div class="space-y-3">
+                                @forelse($proyecto->documentos->where('tipo', 'entregable') as $doc)
+                                    <div
+                                        class="flex items-center justify-between p-4 bg-[#2D1B0F] rounded-2xl shadow-lg group hover:scale-[1.02] transition-transform">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-file-pdf text-[#D4AF37] text-lg"></i>
+                                            <span
+                                                class="text-[10px] font-bold text-white uppercase tracking-tight truncate w-32 md:w-48">{{ $doc->nombre_archivo }}</span>
+                                        </div>
+                                        <a href="{{ Storage::url($doc->path) }}" download
+                                            class="bg-[#D4AF37] text-[#2D1B0F] p-2 rounded-lg hover:bg-white transition-colors">
+                                            <i class="fa-solid fa-download text-xs"></i>
+                                        </a>
+                                    </div>
+                                @empty
+                                    <p
+                                        class="text-[10px] italic text-gray-400 p-4 border border-dashed border-gray-200 rounded-2xl text-center">
+                                        No hay entregables disponibles aún.</p>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3
+                                class="text-[11px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2">
+                                <i class="fa-solid fa-paperclip text-[#8B7355]"></i> Documentación Técnica
+                            </h3>
+                            <div class="space-y-2">
+                                @forelse($proyecto->documentos->where('tipo', '!=', 'entregable') as $doc)
+                                    <div class="flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-xl">
+                                        <i class="fa-solid fa-file text-gray-300 text-sm"></i>
+                                        <span
+                                            class="text-[10px] font-bold text-[#2D1B0F] uppercase tracking-tight opacity-70">{{ $doc->nombre_archivo }}</span>
+                                    </div>
+                                @empty
+                                    <p class="text-[10px] italic text-gray-400 p-4 text-center">No se han adjuntado
+                                        otros documentos.</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3
+                            class="text-[11px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-file-invoice-dollar text-[#D4AF37]"></i> Presupuesto del Proyecto
+                        </h3>
+
+                        @if ($proyecto->presupuesto)
+                            <div class="bg-white border border-[#2D1B0F]/10 rounded-[30px] overflow-hidden shadow-sm">
+
+                                <div
+                                    class="p-6 border-b border-gray-50 flex flex-wrap justify-between items-center gap-4 bg-[#FAFAF8]">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="bg-[#2D1B0F] text-[#D4AF37] px-4 py-2 rounded-xl text-xs font-black tracking-tighter italic">
+                                            Nº {{ $proyecto->presupuesto->numero }}
+                                        </div>
+
+                                        @php
+                                            $colorEstado =
+                                                [
+                                                    'borrador' => 'bg-gray-100 text-gray-500 border-gray-200',
+                                                    'enviado' => 'bg-blue-50 text-blue-600 border-blue-200',
+                                                    'aceptado' => 'bg-green-50 text-green-600 border-green-200',
+                                                    'rechazado' => 'bg-red-50 text-red-600 border-red-200',
+                                                    'caducado' => 'bg-orange-50 text-orange-600 border-orange-200',
+                                                ][$proyecto->presupuesto->estado] ??
+                                                'bg-gray-50 text-gray-500 border-gray-200';
+                                        @endphp
+
+                                        <div
+                                            class="px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border {{ $colorEstado }}">
+                                            {{ str_replace('_', ' ', $proyecto->presupuesto->estado) }}
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="flex gap-6 text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                                        <span>Emisión: <span
+                                                class="text-[#2D1B0F]">{{ \Carbon\Carbon::parse($proyecto->presupuesto->fecha_emision)->format('d/m/Y') }}</span></span>
+                                        @if ($proyecto->presupuesto->fecha_caducidad)
+                                            <span>Vence: <span
+                                                    class="text-[#2D1B0F]">{{ \Carbon\Carbon::parse($proyecto->presupuesto->fecha_caducidad)->format('d/m/Y') }}</span></span>
+                                        @endif
+                                    </div>
+
+                                    @if ($proyecto->presupuesto->pdf_path)
+                                        <a href="{{ Storage::url($proyecto->presupuesto->pdf_path) }}" target="_blank"
+                                            class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#D4AF37] hover:text-[#2D1B0F] transition-colors">
+                                            <i class="fa-solid fa-file-pdf"></i> Descargar PDF
+                                        </a>
+                                    @endif
+                                </div>
+
+                                <div class="p-6 space-y-4">
+                                    <div
+                                        class="hidden md:grid grid-cols-12 gap-4 px-4 text-[8px] font-black text-gray-400 uppercase tracking-[0.2em] italic">
+                                        <div class="col-span-6">Concepto</div>
+                                        <div class="col-span-2 text-center">Cantidad</div>
+                                        <div class="col-span-2 text-right">Precio U.</div>
+                                        <div class="col-span-2 text-right">Subtotal</div>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        {{-- IMPORTANTE: Asegúrate de que en el modelo Presupuesto existe la relación 'lineas' --}}
+                                        @forelse($proyecto->presupuesto->lineas->sortBy('orden') as $linea)
+                                            <div
+                                                class="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 bg-[#F5F5F0]/30 rounded-2xl border border-transparent hover:border-[#D4AF37]/20 transition-all items-center">
+                                                <div class="col-span-6">
+                                                    <p
+                                                        class="text-[10px] font-black text-[#2D1B0F] uppercase leading-none mb-1">
+                                                        {{ $linea->concepto }}</p>
+                                                    @if ($linea->descripcion)
+                                                        <p
+                                                            class="text-[9px] font-medium text-gray-500 italic leading-tight">
+                                                            {{ $linea->descripcion }}</p>
+                                                    @endif
+                                                </div>
+                                                <div
+                                                    class="col-span-2 text-center text-[10px] font-bold text-[#2D1B0F]">
+                                                    {{ number_format($linea->cantidad, 2, ',', '.') }}
+                                                </div>
+                                                <div
+                                                    class="col-span-2 text-right text-[10px] font-bold text-[#2D1B0F]">
+                                                    {{ number_format($linea->precio_unitario, 2, ',', '.') }}€
+                                                </div>
+                                                <div
+                                                    class="col-span-2 text-right text-[10px] font-black text-[#2D1B0F]">
+                                                    {{ number_format($linea->subtotal, 2, ',', '.') }}€
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <div
+                                                class="py-8 text-center border-2 border-dashed border-gray-100 rounded-3xl">
+                                                <p
+                                                    class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                                                    No hay conceptos detallados</p>
+                                            </div>
+                                        @endforelse
+                                    </div>
+                                </div>
+
+                                <div class="bg-[#2D1B0F] p-8 grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
+                                    <div class="md:col-span-2">
+                                        @if ($proyecto->presupuesto->notas)
+                                            <p
+                                                class="text-[8px] font-black text-[#D4AF37] uppercase tracking-widest mb-1 italic">
+                                                Observaciones técnicas</p>
+                                            <p class="text-[10px] font-medium text-white/60 italic leading-snug">
+                                                {{ $proyecto->presupuesto->notas }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="text-right">
+                                        <p
+                                            class="text-[8px] font-black text-[#D4AF37] uppercase tracking-widest italic">
+                                            Base Imponible</p>
+                                        <p class="text-sm font-bold text-white">
+                                            {{ number_format($proyecto->presupuesto->base_imponible, 2, ',', '.') }}€
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="text-right border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pt-0 md:pl-6">
+                                        <p
+                                            class="text-[8px] font-black text-[#D4AF37] uppercase tracking-widest italic">
+                                            Total ({{ number_format($proyecto->presupuesto->iva_porcentaje, 0) }}% IVA
+                                            inc.)</p>
+                                        <p class="text-2xl font-black text-white tracking-tighter">
+                                            {{ number_format($proyecto->presupuesto->total, 2, ',', '.') }}€</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            {{-- CASO 2: NO HAY PRESUPUESTO ASOCIADO --}}
+                            <div
+                                class="bg-white border-2 border-dashed border-gray-100 rounded-[35px] p-12 flex flex-col items-center justify-center text-center group transition-all hover:border-[#D4AF37]/30">
+                                <div
+                                    class="w-16 h-16 bg-[#F5F5F0] rounded-2xl flex items-center justify-center text-gray-300 mb-4 transition-transform group-hover:scale-110 group-hover:bg-[#2D1B0F] group-hover:text-[#D4AF37]">
+                                    <i class="fa-solid fa-file-invoice-dollar text-2xl"></i>
+                                </div>
+                                <p class="text-[10px] font-black text-[#2D1B0F] uppercase tracking-[0.3em]">Presupuesto
+                                    en fase de redacción</p>
+                                <p class="text-[9px] font-medium text-gray-400 italic mt-1 uppercase tracking-widest">
+                                    Tan pronto como el gabinete técnico valore el proyecto, aparecerá aquí.</p>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="bg-white border-2 border-[#F5F5F0] rounded-[35px] p-8 relative overflow-hidden group">
+                        <i
+                            class="fa-solid fa-building absolute -right-4 -bottom-4 text-8xl text-[#2D1B0F]/5 -rotate-12 transition-transform group-hover:rotate-0 group-hover:scale-110"></i>
+                        <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                            <div>
+                                <p class="text-[9px] font-black text-[#D4AF37] uppercase tracking-[0.3em] mb-2">
+                                    Gabinete
+                                    Responsable</p>
+                                <h4 class="text-xl font-black text-[#2D1B0F] uppercase tracking-tighter">
+                                    {{ $proyecto->empresa->nombre_fiscal }}</h4>
+                            </div>
+                            <div class="flex gap-8">
+                                <div class="text-center md:text-left">
+                                    <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest">Atención
+                                        Telefónica</p>
+                                    <p class="text-xs font-bold text-[#2D1B0F]">{{ $proyecto->empresa->telefono }}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @if ($proyecto->estado === 'pendiente_aceptacion')
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-gray-100">
+                            <button wire:click="aceptarProyecto"
+                                class="bg-[#2D1B0F] text-[#D4AF37] py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] shadow-xl hover:bg-[#1a0f08] transition-all">
+                                <i class="fa-solid fa-check mr-2"></i> Aceptar Proyecto y Presupuesto
+                            </button>
+                            <button wire:click="rechazarProyecto"
+                                class="bg-white border-2 border-red-500 text-red-500 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] hover:bg-red-50 transition-all">
+                                <i class="fa-solid fa-xmark mr-2"></i> Rechazar Propuesta
+                            </button>
+                        </div>
+                    @endif
+
                 </div>
-            </div>
+            </x-slot>
 
-            @if($proyecto->estado === 'pendiente_aceptacion')
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-gray-100">
-                    <button wire:click="aceptarProyecto" class="bg-[#2D1B0F] text-[#D4AF37] py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] shadow-xl hover:bg-[#1a0f08] transition-all">
-                        <i class="fa-solid fa-check mr-2"></i> Aceptar Proyecto y Presupuesto
-                    </button>
-                    <button wire:click="rechazarProyecto" class="bg-white border-2 border-red-500 text-red-500 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] hover:bg-red-50 transition-all">
-                        <i class="fa-solid fa-xmark mr-2"></i> Rechazar Propuesta
-                    </button>
+            <x-slot name="footer">
+                <div class="flex justify-between items-center w-full">
+                    <p class="hidden md:block text-[9px] font-black text-gray-300 uppercase tracking-[0.4em] italic">
+                        TopoGest Engineering System</p>
+                    <x-secondary-button wire:click="$set('mostrarProyectos', false)"
+                        class="rounded-xl px-8 py-3 text-[10px] font-black uppercase tracking-widest">
+                        Cerrar Detalles
+                    </x-secondary-button>
                 </div>
-            @endif
-
-        </div>
-    </x-slot>
-
-    <x-slot name="footer">
-        <div class="flex justify-between items-center w-full">
-            <p class="hidden md:block text-[9px] font-black text-gray-300 uppercase tracking-[0.4em] italic">TopoGest Engineering System</p>
-            <x-secondary-button wire:click="$set('mostrarProyectos', false)" class="rounded-xl px-8 py-3 text-[10px] font-black uppercase tracking-widest">
-                Cerrar Detalles
-            </x-secondary-button>
-        </div>
-    </x-slot>
-</x-dialog-modal>
+            </x-slot>
+        </x-dialog-modal>
     @endif
 </x-mios.base>

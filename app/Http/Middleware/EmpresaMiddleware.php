@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmpresaMiddleware
@@ -15,6 +16,9 @@ class EmpresaMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(Auth::user()->role !== "empresa"){
+            abort('403', 'Usuario NO Autorizado!!');
+        }
         return $next($request);
     }
 }
