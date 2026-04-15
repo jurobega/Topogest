@@ -56,7 +56,7 @@
                                         class="text-[7px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
                                         Inicio</p>
                                     <p class="text-[10px] font-black text-[#2D1B0F]">
-                                        {{ $item->fecha_inicio->format('d/m/Y') }}</p>
+                                        {{ $item->fecha_inicio?->format('d/m/Y') ?? 'Pendiente' }}</p>
                                 </div>
 
                                 <div>
@@ -65,13 +65,13 @@
                                             class="text-[7px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
                                             Cerrado</p>
                                         <p class="text-[10px] font-black text-[#D4AF37]">
-                                            {{ $item->updated_at->format('d/m/Y') }}</p>
+                                            {{ $item->updated_at?->format('d/m/Y') ?? 'Pendiente'}}</p>
                                     @else
                                         <p
                                             class="text-[7px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
                                             Previsto</p>
                                         <p class="text-[10px] font-black text-[#D4AF37]">
-                                            {{ $item->fecha_fin_prevista->format('d/m/Y') }}</p>
+                                            {{ $item->fecha_fin_prevista?->format('d/m/Y') ?? 'Pendiente' }}</p>
                                     @endif
 
                                 </div>
@@ -88,14 +88,11 @@
                 @endforeach
             </div>
 
+            {{ $proyectos->links() }}
+
             <footer class="mt-32 pt-8 border-t border-[#2D1B0F]/5 flex justify-between items-center">
                 <span class="text-[9px] font-black text-[#8B7355] uppercase tracking-[0.4em] italic">TopoGest v2.0 ·
                     Central de Proyectos</span>
-                <div class="flex gap-12">
-                    <button class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300">Anterior</button>
-                    <button
-                        class="text-[10px] font-black uppercase tracking-[0.3em] text-[#2D1B0F] hover:text-[#D4AF37]">Siguiente</button>
-                </div>
             </footer>
         </div>
     </div>

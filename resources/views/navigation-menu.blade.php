@@ -58,6 +58,14 @@
                     class="fa-solid fa-chart-pie mr-3 text-lg {{ request()->routeIs('*.dashboard') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
                 <span class="uppercase tracking-widest text-[11px]">Panel de Control</span>
             </x-nav-link>
+            <x-nav-link href="{{ route('empresa.solicitudes.index') }}" :active="request()->routeIs('empresa.solicitudes.*')"
+                class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('empresa.solicitudes.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+
+                <i
+                    class="fa-solid fa-file-lines mr-3 text-lg {{ request()->routeIs('empresa.solicitudes.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+
+                <span class="uppercase tracking-widest text-[11px]">Solicitudes</span>
+            </x-nav-link>
             @endif
 
             @if (Auth::user()->role == 'admin')

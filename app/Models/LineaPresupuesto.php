@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class LineaPresupuesto extends Model
 {
-      protected $table = 'lineas_presupuesto';
+
+    use HasFactory;
+
+    protected $table = 'lineas_presupuesto';
 
     public $timestamps = false;
 

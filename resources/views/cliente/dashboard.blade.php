@@ -82,7 +82,7 @@
                 <div class="flex items-center justify-between mb-4 px-2">
                     <h2 class="text-sm font-black text-[#2D1B0F] uppercase tracking-widest italic">Mis Solicitudes de
                         Presupuesto</h2>
-                    <a href="#"
+                    <a href="{{ route('cliente.solicitudes.index') }}"
                         class="text-[9px] font-black text-[#D4AF37] uppercase tracking-widest hover:underline">Ver
                         todas</a>
                 </div>
@@ -148,7 +148,7 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 text-right text-[10px] font-bold text-gray-400">
-                                             {{ $item->created_at->format('d/m/Y') }}
+                                             {{ $item->created_at?->format('d/m/Y') ?? 'Pendiente'}}
                                         </td>
                                         <td class="px-8 py-4 text-right">
                                             <button
@@ -168,7 +168,7 @@
                 <div class="flex items-center justify-between mb-4 px-2">
                     <h2 class="text-sm font-black text-[#2D1B0F] uppercase tracking-widest italic">Proyectos en Curso
                     </h2>
-                    <a href="#"
+                    <a href="{{ route('cliente.proyectos.index') }}"
                         class="text-[9px] font-black text-[#D4AF37] uppercase tracking-widest hover:underline">Gestionar
                         Proyectos</a>
                 </div>
@@ -196,14 +196,14 @@
                                         class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
                                         Fecha Inicio</p>
                                     <p class="text-[11px] font-bold text-[#2D1B0F]">
-                                        {{ $item->fecha_inicio->format('d/m/Y') }}</p>
+                                        {{ $item->fecha_inicio?->format('d/m/Y') ?? 'Pendiente' }}</p>
                                 </div>
                                 <div class="bg-[#FDFDFB] p-3 rounded-2xl border border-gray-50">
                                     <p
                                         class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
                                         Finalización Prev.</p>
                                     <p class="text-[11px] font-bold text-[#2D1B0F]">
-                                        {{ $item->fecha_fin_prevista->format('d/m/Y') }}</p>
+                                        {{ $item->fecha_fin_prevista?->format('d/m/Y') ?? 'Pendiente' }}</p>
                                 </div>
                             </div>
 

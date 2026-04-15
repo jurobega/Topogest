@@ -10,12 +10,14 @@ use App\Http\Middleware\EmpresaMiddleware;
 use App\Livewire\Cliente\Proyectos\ProyectosIndex;
 use App\Livewire\Cliente\SolicitarServicio;
 use App\Livewire\Cliente\Solicitudes\SolicitudesIndex;
+
+use App\Livewire\Empresa\Solicitudes\SolicitudesEmpresa;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('inicio');
-Route::get('/empresa/{perfil}', [EmpresaPerfilController::class, 'show'])->name('empresa.perfil');
+
 
 Route::middleware([
     'auth:sanctum',
@@ -34,6 +36,7 @@ Route::middleware([
     // Panel Empresa
     Route::prefix('empresa')->name('empresa.')->middleware(EmpresaMiddleware::class)->group(function () {
         Route::get('/dashboard' , [DashboardEmpresaController::class , 'index'])->name('dashboard');
+        Route::get('/solicitudes' , SolicitudesEmpresa::class)->name('solicitudes.index');
     });
 
     // Panel Cliente
@@ -45,3 +48,5 @@ Route::middleware([
     });
  
 });
+
+Route::get('/empresa/{perfil}', [EmpresaPerfilController::class, 'show'])->name('empresa.perfil');
