@@ -11,6 +11,7 @@ use App\Livewire\Cliente\Proyectos\ProyectosIndex;
 use App\Livewire\Cliente\SolicitarServicio;
 use App\Livewire\Cliente\Solicitudes\SolicitudesIndex;
 
+use App\Livewire\Empresa\Proyectos\ProyectosEmpresaIndex;
 use App\Livewire\Empresa\Solicitudes\SolicitudesEmpresa;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,7 @@ Route::middleware([
     Route::prefix('empresa')->name('empresa.')->middleware(EmpresaMiddleware::class)->group(function () {
         Route::get('/dashboard' , [DashboardEmpresaController::class , 'index'])->name('dashboard');
         Route::get('/solicitudes' , SolicitudesEmpresa::class)->name('solicitudes.index');
+        Route::get('/proyectos' , ProyectosEmpresaIndex::class)->name('proyectos.index');
     });
 
     // Panel Cliente

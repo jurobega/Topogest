@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Cliente\Solicitudes;
 
+use App\Models\MensajeSolicitud;
 use App\Models\PerfilCliente;
 use App\Models\Solicitud;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,8 @@ class SolicitudesIndex extends Component
     public bool $openMostrar = false;
 
     public ?Solicitud $solicitud = null;
+
+    public string $nuevoMensaje = "";
 
     public function render()
     {
@@ -53,5 +56,23 @@ class SolicitudesIndex extends Component
     public function mostrarSolicitud(?int $id = null) {
         $this->solicitud = Solicitud::findOrFail($id);
         $this->openMostrar = true;
+    }
+
+
+      public function enviarMensaje(): void
+    {
+        $this->validate([
+            'nuevoMensaje' => ['required', 'string', 'min:1', 'max:1000'],
+        ]);
+
+        MensajeSolicitud::create([
+            'solicitud_id' => $this->solicitud->id,
+            'remitente_id' => Auth::id(),
+            'mensaje' => $this->nuevoMensaje,
+            'leido' => false,
+        ]);
+
+        $this->nuevoMensaje = '';
+        $this->solicitud->refresh();
     }
 }

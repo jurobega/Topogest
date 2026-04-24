@@ -19,7 +19,7 @@ class CrearSolicitudForm extends Form
     #[Validate(['required', 'string', 'min:3', 'max:150'])]
     public string $asunto = "";
 
-    #[Validate(['nullable', 'string', 'min:3', 'max:150'])]
+    #[Validate(['nullable', 'string', 'min:3', 'max:500'])]
     public ?string $descripcion = null;
 
 

@@ -41,4 +41,21 @@ class ProyectosIndex extends Component
         $this->proyecto = $proyecto;
         $this->mostrarProyectos = true;
     }
+
+    public function aceptarProyecto() {
+        $this->proyecto->update([
+            'estado' => 'activo',
+            'fecha_inicio' => now(),
+        ]);
+
+        $this->proyecto->refresh();
+    }
+
+
+    public function rechazarProyecto() {
+
+        $this->proyecto->update(['estado' => 'rechazado']);
+
+        $this->proyecto->refresh();
+    }
 }

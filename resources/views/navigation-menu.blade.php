@@ -66,6 +66,12 @@
 
                 <span class="uppercase tracking-widest text-[11px]">Solicitudes</span>
             </x-nav-link>
+            <x-nav-link href="{{ route('empresa.proyectos.index') }}" :active="request()->routeIs('empresa.proyectos.*')"
+                class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('empresa.proyectos.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+
+               <i class="fa-solid fa-map-location-dot mr-3 text-lg {{ request()->routeIs('empresa.proyectos.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                <span class="uppercase tracking-widest text-[11px]">Proyectos</span>
+            </x-nav-link>
             @endif
 
             @if (Auth::user()->role == 'admin')

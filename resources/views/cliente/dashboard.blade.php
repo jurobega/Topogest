@@ -150,12 +150,7 @@
                                         <td class="px-6 py-4 text-right text-[10px] font-bold text-gray-400">
                                              {{ $item->created_at?->format('d/m/Y') ?? 'Pendiente'}}
                                         </td>
-                                        <td class="px-8 py-4 text-right">
-                                            <button
-                                                class="bg-[#F5F5F0] text-[#2D1B0F] px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-[#D4AF37] hover:text-white transition-all">
-                                                Detalle
-                                            </button>
-                                        </td>
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -207,10 +202,7 @@
                                 </div>
                             </div>
 
-                            <a href="#"
-                                class="w-full text-center bg-[#2D1B0F] text-[#D4AF37] py-4 rounded-2xl font-black text-[9px] uppercase tracking-[0.3em] hover:bg-[#1A0F08] transition-all transform active:scale-95 shadow-lg shadow-[#2D1B0F]/10">
-                                Ver Seguimiento Proyecto
-                            </a>
+                           
                         </div>
                     @endforeach
                 </div>

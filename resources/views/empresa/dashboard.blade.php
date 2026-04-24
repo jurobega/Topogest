@@ -64,7 +64,7 @@
                         <h2 class="text-[11px] font-black uppercase tracking-[0.3em] flex items-center gap-2">
                             <span class="w-2 h-2 bg-red-500 rounded-full"></span> Bandeja de Entrada
                         </h2>
-                        <a href="#"
+                        <a href="{{ route('empresa.solicitudes.index') }}"
                             class="text-[9px] font-bold text-[#D4AF37] uppercase tracking-widest hover:underline">Ver
                             todas</a>
                     </div>
@@ -103,10 +103,6 @@
                                         class="hidden md:block text-[8px] font-bold text-gray-500 uppercase tracking-widest">
                                         {{ $item->created_at?->format('d/m/Y H:i') }}
                                     </span>
-                                    <button
-                                        class="px-4 py-2 bg-[#D4AF37] text-[#2D1B0F] text-[9px] font-black uppercase rounded-xl tracking-widest hover:bg-white transition-colors">
-                                        Abrir
-                                    </button>
                                 </div>
                             </div>
                         @empty
@@ -256,8 +252,9 @@
                                     <th class="px-8 py-5 text-[9px] font-black uppercase tracking-[0.2em]">Estado</th>
                                     <th
                                         class="px-8 py-5 text-[9px] font-black uppercase tracking-[0.2em] hidden sm:table-cell">
-                                        Fecha</th>
-                                    <th class="px-8 py-5 text-right"></th>
+                                        Fecha
+                                    </th>
+                                   
                                 </tr>
                             </thead>
 
@@ -294,11 +291,7 @@
                                             {{ $item->created_at?->format('d/m/Y') }}
                                         </td>
 
-                                        <td class="px-8 py-5 text-right">
-                                            <button class="text-[#D4AF37] hover:text-[#2D1B0F] transition-colors">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
-                                        </td>
+                                        
                                     </tr>
                                 @empty
                                     <tr>

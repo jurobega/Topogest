@@ -74,11 +74,9 @@
                                 <tr class="hover:bg-[#F5F5F0]/50 transition-colors">
                                     <td class="px-8 py-5">
                                         <div class="flex items-center gap-4">
-                                            <div
-                                                class="w-10 h-10 rounded-2xl bg-[#D4AF37] text-[#2D1B0F] flex items-center justify-center font-black text-xs shadow-sm">
-                                                JP</div>
+
                                             <span
-                                                class="text-[11px] font-black uppercase tracking-tighter">{{ $item->cliente->nombre }}</span>
+                                                class="text-[11px] font-black uppercase tracking-tighter">{{ $item->cliente->nombre_completo }}</span>
                                         </div>
                                     </td>
                                     <td class="px-8 py-5 text-[10px] font-bold">{{ $item->asunto }}</td>
@@ -99,163 +97,211 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="px-8 py-6 bg-[#FAFAF8] border-t border-gray-100">
+                        {{ $solicitudes->links() }}
+                    </div>
                 @else
-                    <x-mios.aviso>Actualmente no hay solicitudes que requieran atención o coincidan con tus filtros de búsqueda.</x-mios.aviso>
+                    <x-mios.aviso>Actualmente no hay solicitudes que requieran atención o coincidan con tus filtros de
+                        búsqueda.</x-mios.aviso>
                 @endif
             </div>
-            {{ $solicitudes->links() }}
+
         </div>
 
-        <x-dialog-modal wire:model="mostrarSolicitudes" maxWidth="5xl">
-            <x-slot name="title">
-                <div class="flex flex-col md:flex-row justify-between items-start gap-4 pb-6 border-b border-gray-100">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="h-[2px] w-8 bg-[#D4AF37]"></span>
-                            <p class="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.4em]">Detalle de
-                                Solicitud</p>
-                        </div>
-                        <h2 class="text-3xl font-black text-[#2D1B0F] uppercase tracking-tighter italic">Levantamiento
-                            Finca La Atalaya</h2>
-                    </div>
+        @if ($solicitud)
+            <x-dialog-modal wire:model="mostrarSolicitudes" maxWidth="5xl">
+                <x-slot name="title">
                     <div
-                        class="px-4 py-2 bg-amber-50 border-2 border-amber-200 text-amber-600 rounded-xl text-[10px] font-black uppercase tracking-widest">
-                        Pendiente
+                        class="flex flex-col md:flex-row justify-between items-start gap-4 pb-6 border-b border-gray-100">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="h-[2px] w-8 bg-[#D4AF37]"></span>
+                                <p class="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.4em]">Detalle de
+                                    Solicitud</p>
+                            </div>
+                            <h2 class="text-3xl font-black text-[#2D1B0F] uppercase tracking-tighter italic">
+                                {{ $solicitud->asunto }}</h2>
+                        </div>
+                        <div
+                            class="px-4 py-2 bg-amber-50 border-2 border-amber-200 text-amber-600 rounded-xl text-[10px] font-black uppercase tracking-widest">
+                            {{ $solicitud->estado }}
+                        </div>
                     </div>
-                </div>
-            </x-slot>
+                </x-slot>
 
-            <x-slot name="content">
-                <div
-                    class="grid grid-cols-1 lg:grid-cols-12 gap-10 py-4 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
+                <x-slot name="content">
+                    <div
+                        class="grid grid-cols-1 lg:grid-cols-12 gap-10 py-4 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
 
-                    <div class="lg:col-span-7 space-y-8">
+                        <div class="lg:col-span-7 space-y-8">
 
-                        <div class="grid grid-cols-2 gap-6 bg-[#F5F5F0] p-6 rounded-[30px] border border-[#2D1B0F]/5">
-                            <div class="col-span-2 md:col-span-1">
-                                <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
-                                    Cliente</p>
-                                <p class="text-sm font-black text-[#2D1B0F] uppercase tracking-tight italic">Juan Pérez
-                                    S.L.</p>
+                            <div
+                                class="grid grid-cols-2 gap-6 bg-[#F5F5F0] p-6 rounded-[30px] border border-[#2D1B0F]/5">
+                                <div class="col-span-2 md:col-span-1">
+                                    <p
+                                        class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
+                                        Cliente</p>
+                                    <p class="text-sm font-black text-[#2D1B0F] uppercase tracking-tight italic">
+                                        {{ $solicitud->cliente->nombre_completo }}</p>
+                                </div>
+                                <div class="md:col-span-1">
+                                    <p
+                                        class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
+                                        Provincia</p>
+                                    <p class="text-sm font-bold text-[#2D1B0F]">{{ $solicitud->cliente->provincia }}
+                                    </p>
+                                </div>
+                                <div class="md:col-span-1">
+                                    <p
+                                        class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
+                                        Teléfono</p>
+                                    <p class="text-sm font-bold text-[#2D1B0F]">{{ $solicitud->cliente->telefono }}</p>
+                                </div>
+                                <div class="md:col-span-1">
+                                    <p
+                                        class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
+                                        Fecha de envío</p>
+                                    <p class="text-sm font-bold text-[#2D1B0F]">
+                                        {{ $solicitud->created_at->format('d/m/Y') }}</p>
+                                </div>
                             </div>
-                            <div class="md:col-span-1">
-                                <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
-                                    Provincia</p>
-                                <p class="text-sm font-bold text-[#2D1B0F]">Almería</p>
+
+                            <div class="space-y-3 italic leading-relaxed text-[#2D1B0F]/80 text-sm">
+                                <h4
+                                    class="text-[10px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2 not-italic">
+                                    <i class="fa-solid fa-align-left text-[#D4AF37]"></i> Descripción del encargo
+                                </h4>
+                                <p class="bg-white border border-gray-100 p-6 rounded-[25px]">
+                                    {{ $solicitud->descripcion }}</p>
                             </div>
-                            <div class="md:col-span-1">
-                                <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
-                                    Teléfono</p>
-                                <p class="text-sm font-bold text-[#2D1B0F]">+34 600 000 000</p>
-                            </div>
-                            <div class="md:col-span-1">
-                                <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">
-                                    Fecha de envío</p>
-                                <p class="text-sm font-bold text-[#2D1B0F]">14/04/2026</p>
+
+                            <div class="space-y-4">
+                                <h4
+                                    class="text-[10px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2">
+                                    <i class="fa-solid fa-paperclip text-[#D4AF37]"></i> Archivos adjuntos
+                                </h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    @foreach ($solicitud->documentos as $documento)
+                                        <div
+                                            class="flex items-center justify-between p-3 bg-white border border-gray-100 rounded-2xl hover:border-[#D4AF37]/50 transition-all cursor-pointer group">
+                                            <div class="flex items-center gap-3 overflow-hidden">
+                                                <div
+                                                    class="w-8 h-8 rounded-lg bg-[#2D1B0F] flex items-center justify-center text-[#D4AF37] flex-shrink-0">
+                                                    <i class="fa-solid fa-file-pdf text-xs"></i>
+                                                </div>
+                                                <div class="flex flex-col truncate">
+                                                    <span
+                                                        class="text-[10px] font-bold text-[#2D1B0F] uppercase tracking-tighter truncate">{{ $documento->nombre_archivo }}</span>
+                                                    <span
+                                                        class="text-[8px] font-black text-[#8B7355] uppercase tracking-widest">
+                                                        @if ($documento->size_bytes < 1024)
+                                                            {{ $documento->size_bytes }} B
+                                                        @elseif($documento->size_bytes < 1048576)
+                                                            {{ number_format($documento->size_bytes / 1024, 2) }} KB
+                                                        @else
+                                                            {{ number_format($documento->size_bytes / 1048576, 2) }} MB
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <i
+                                                class="fa-solid fa-download text-gray-300 group-hover:text-[#D4AF37] text-xs"></i>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
 
-                        <div class="space-y-3 italic leading-relaxed text-[#2D1B0F]/80 text-sm">
-                            <h4
-                                class="text-[10px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2 not-italic">
-                                <i class="fa-solid fa-align-left text-[#D4AF37]"></i> Descripción del encargo
-                            </h4>
-                            <p class="bg-white border border-gray-100 p-6 rounded-[25px]">Necesitamos un deslinde
-                                preciso de la parcela 42 del polígono 12. Existe un conflicto de lindes con el vecino
-                                del norte y necesitamos el levantamiento para mediación jurídica y posterior
-                                actualización catastral con GML.</p>
-                        </div>
+                        <div
+                            class="lg:col-span-5 flex flex-col h-full bg-white border border-gray-100 rounded-[35px] shadow-sm overflow-hidden">
+                            <div class="bg-[#2D1B0F] p-4 flex items-center gap-3">
 
-                        <div class="space-y-4">
-                            <h4
-                                class="text-[10px] font-black text-[#2D1B0F] uppercase tracking-widest flex items-center gap-2">
-                                <i class="fa-solid fa-paperclip text-[#D4AF37]"></i> Archivos adjuntos
-                            </h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <div
-                                    class="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-2xl group hover:border-[#D4AF37] transition-all">
-                                    <div class="flex items-center gap-3">
-                                        <i class="fa-solid fa-file-pdf text-red-500"></i>
-                                        <div>
-                                            <p
-                                                class="text-[10px] font-black text-[#2D1B0F] uppercase truncate w-32 tracking-tighter italic">
-                                                Escritura_Finca.pdf</p>
-                                            <p class="text-[8px] text-gray-400 font-bold uppercase tracking-widest">2.4
-                                                MB</p>
+                                <p class="text-[9px] font-black text-white uppercase tracking-[0.2em]">Canal de
+                                    Comunicación
+                                </p>
+                            </div>
+
+                            <div
+                                class="flex-1 p-6 space-y-6 bg-gray-50/50 overflow-y-auto min-h-[400px] max-h-[500px] custom-scrollbar">
+
+                                @foreach ($solicitud->mensajes as $mensaje)
+                                    @php
+                                        // Comprobamos si el mensaje es nuestro o del otro (cliente/otro usuario)
+                                        $esMio = $mensaje->remitente_id === auth()->id();
+                                    @endphp
+
+                                    <div
+                                        class="flex flex-col {{ $esMio ? 'items-end ml-auto' : 'items-start' }} max-w-[85%]">
+
+                                        <div
+                                            class="p-4 rounded-2xl shadow-sm border {{ $esMio
+                                                ? 'bg-[#2D1B0F] text-white rounded-tr-none border-transparent shadow-xl shadow-[#2D1B0F]/10'
+                                                : 'bg-white text-gray-700 rounded-tl-none border-gray-100' }}">
+
+                                            <p class="text-xs font-medium leading-relaxed">
+                                                {{ $mensaje->mensaje }}
+                                            </p>
+                                        </div>
+
+                                        <div class="flex items-center gap-2 mt-1 px-1">
+                                            <span
+                                                class="text-[8px] font-black uppercase tracking-[0.15em] {{ $esMio ? 'text-[#8B7355]' : 'text-gray-400' }}">
+                                                {{ $esMio ? 'Tú' : 'Cliente' }}
+                                            </span>
+                                            <span class="text-[7px] font-bold text-gray-300 uppercase tracking-widest">
+                                                • {{ $mensaje->created_at->format('H:i') }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <button
-                                        class="p-2 bg-[#F5F5F0] rounded-lg text-gray-400 hover:bg-[#2D1B0F] hover:text-[#D4AF37] transition-all">
-                                        <i class="fa-solid fa-download text-xs"></i>
+                                @endforeach
+
+                            </div>
+
+
+                            <div class="p-4 bg-white border-t border-gray-100 flex gap-2">
+                                <input type="text" placeholder="Escribe tu mensaje..."
+                                    wire:model.live="nuevoMensaje"
+                                    class="flex-1 bg-[#F5F5F0] border-none rounded-xl text-xs py-3 px-4 focus:ring-1 focus:ring-[#D4AF37]">
+                                <button wire:click="enviarMensaje"
+                                    class="bg-[#D4AF37] text-[#2D1B0F] p-3 rounded-xl hover:bg-[#2D1B0F] hover:text-white transition-all">
+                                    <i class="fa-solid fa-paper-plane text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </x-slot>
+
+                <x-slot name="footer">
+                    <div class="flex flex-col md:flex-row justify-between items-center w-full gap-4">
+                        <div class="flex gap-3">
+                            @if ($solicitud->estado == 'vista' || $solicitud->estado == 'en_negociacion')
+                                <button wire:click="mostrarConfirmacion"
+                                    class="bg-[red] text-[#2D1B0F] px-6 py-3 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] border border-gray-200 hover:bg-gray-200 transition-all">
+                                    Rechazar
+                                </button>
+                                @if ($solicitud->estado != 'en_negociacion')
+                                    <button wire:click="marcarEnNegociacion"
+                                        class="bg-[#F5F5F0] text-[#2D1B0F] px-6 py-3 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] border border-gray-200 hover:bg-gray-200 transition-all">
+                                        Marcar en Negociación
                                     </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                @endif
 
-                    <div
-                        class="lg:col-span-5 flex flex-col h-full bg-white border border-gray-100 rounded-[35px] shadow-sm overflow-hidden">
-                        <div class="bg-[#2D1B0F] p-4 flex items-center gap-3">
-                            <div
-                                class="w-8 h-8 bg-[#D4AF37] rounded-lg flex items-center justify-center font-black text-[#2D1B0F] text-[10px]">
-                                TG</div>
-                            <p class="text-[9px] font-black text-white uppercase tracking-[0.2em]">Canal de Comunicación
-                            </p>
-                        </div>
+                                <button wire:click="abrirConvertir({{ $solicitud->id }})"
+                                    class="bg-[#D4AF37] text-[#2D1B0F] px-6 py-3 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-lg shadow-[#D4AF37]/20 hover:scale-105 transition-all">
+                                    Convertir en Proyecto <i class="fa-solid fa-rocket ml-1"></i>
+                                </button>
 
-                        <div class="flex-1 p-6 space-y-4 bg-gray-50/50 overflow-y-auto min-h-[300px]">
-                            <div class="flex flex-col items-start max-w-[85%]">
-                                <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-gray-100 shadow-sm">
-                                    <p class="text-xs font-medium text-gray-700 leading-relaxed">¿Podrían confirmarme si
-                                        el presupuesto incluiría el trámite catastral completo?</p>
-                                </div>
-                                <span
-                                    class="text-[8px] font-bold text-gray-400 uppercase mt-1 ml-1 tracking-widest">Cliente
-                                    - 10:30 AM</span>
-                            </div>
-                            <div class="flex flex-col items-end max-w-[85%] ml-auto">
-                                <div
-                                    class="bg-[#2D1B0F] p-4 rounded-2xl rounded-tr-none text-[#D4AF37] shadow-xl shadow-[#2D1B0F]/10">
-                                    <p class="text-xs font-medium leading-relaxed text-white">Hola Juan. Sí, el
-                                        presupuesto llave en mano incluye la generación del GML y la validación en
-                                        Catastro.</p>
-                                </div>
-                                <span class="text-[8px] font-bold text-gray-400 uppercase mt-1 mr-1 tracking-widest">Tú
-                                    - 10:45 AM</span>
-                            </div>
+                            @endif
                         </div>
-
-                        <div class="p-4 bg-white border-t border-gray-100 flex gap-2">
-                            <input type="text" placeholder="Escribe tu mensaje..."
-                                class="flex-1 bg-[#F5F5F0] border-none rounded-xl text-xs py-3 px-4 focus:ring-1 focus:ring-[#D4AF37]">
-                            <button wire:click="enviarMensaje"
-                                class="bg-[#D4AF37] text-[#2D1B0F] p-3 rounded-xl hover:bg-[#2D1B0F] hover:text-white transition-all">
-                                <i class="fa-solid fa-paper-plane text-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </x-slot>
-
-            <x-slot name="footer">
-                <div class="flex flex-col md:flex-row justify-between items-center w-full gap-4">
-                    <div class="flex gap-3">
-                        <button wire:click="marcarEnNegociacion"
-                            class="bg-[#F5F5F0] text-[#2D1B0F] px-6 py-3 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] border border-gray-200 hover:bg-gray-200 transition-all">
-                            Marcar en Negociación
-                        </button>
-                        <button wire:click="convertirEnProyecto"
-                            class="bg-[#D4AF37] text-[#2D1B0F] px-6 py-3 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-lg shadow-[#D4AF37]/20 hover:scale-105 transition-all">
-                            Convertir en Proyecto <i class="fa-solid fa-rocket ml-1"></i>
+                        <button wire:click="$set('mostrarSolicitudes', false)"
+                            class="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-red-500 transition-all">
+                            Cerrar ventana
                         </button>
                     </div>
-                    <button wire:click="$set('mostrarModal', false)"
-                        class="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-red-500 transition-all">
-                        Cerrar ventana
-                    </button>
-                </div>
-            </x-slot>
-        </x-dialog-modal>
+                </x-slot>
+            </x-dialog-modal>
+        @endif
+
     </div>
 
     <style>
@@ -273,4 +319,6 @@
             border-radius: 10px;
         }
     </style>
+    
+    @livewire('empresa.solicitudes.convertir-solicitud')
 </x-mios.base>

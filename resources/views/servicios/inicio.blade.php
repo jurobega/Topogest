@@ -6,7 +6,7 @@
             <h3 class="text-2xl font-extrabold text-[#2D1B0F] tracking-tight">Servicios Técnicos</h3>
             <p class="text-sm text-[#8B7355] mt-1 font-medium">Configuración del catálogo de prestaciones</p>
         </div>
-       <a href="{{ route('servicios.create') }}" class="bg-[#D4AF37] hover:bg-[#B8962D] text-white px-4 py-2 rounded-lg text-sm font-bold transition shadow-lg shadow-[#D4AF37]/20">
+       <a href="{{ route('admin.servicios.create') }}" class="bg-[#D4AF37] hover:bg-[#B8962D] text-white px-4 py-2 rounded-lg text-sm font-bold transition shadow-lg shadow-[#D4AF37]/20">
             + NUEVO SERVICIO
        </a>
     </div>
@@ -34,11 +34,11 @@
                     {{ $item->descripcion }}
                 </td>
                 <td class="px-8 py-6 text-right">
-                    <form method="POST" id="form-eliminar-{{ $item->id }}" action="{{ route('servicios.destroy' , $item->id) }}">
+                    <form method="POST" id="form-eliminar-{{ $item->id }}" action="{{ route('admin.servicios.destroy' , $item->id) }}">
                         @csrf
                         @method('DELETE')
                     <div class="flex justify-end items-center gap-2">
-                        <a href="{{ route('servicios.edit',$item->id) }}" class="p-2.5 bg-gray-50 text-[#8B7355] hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] rounded-lg transition-colors group/edit">
+                        <a href="{{ route('admin.servicios.edit',$item->id) }}" class="p-2.5 bg-gray-50 text-[#8B7355] hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] rounded-lg transition-colors group/edit">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2.5 2.5 0 113.536 3.536L12 14.207l-5 1 1-5 9.914-9.914z" /></svg>
                         </a>
                         
