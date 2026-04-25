@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\DocumentoProyecto;
 use App\Models\DocumentoSolicitud;
 use App\Models\LineaPresupuesto;
+use App\Models\MensajeProyecto;
 use App\Models\MensajeSolicitud;
 use App\Models\PerfilCliente;
 use App\Models\PerfilEmpresa;
@@ -121,6 +122,8 @@ class DatabaseSeeder extends Seeder
         }
 
         $proyectos = Proyecto::all();
+
+        MensajeProyecto::factory(30)->create();
 
         // 8. Documentos de proyecto
         foreach ($proyectos as $proyecto) {

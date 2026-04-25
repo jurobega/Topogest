@@ -28,7 +28,7 @@ class Proyecto extends Model
     ];
 
     protected $casts = [
-        'fecha_inicio'       => 'date',
+        'fecha_inicio' => 'date',
         'fecha_fin_prevista' => 'date',
     ];
 
@@ -70,5 +70,10 @@ class Proyecto extends Model
     public function esInterno(): bool
     {
         return $this->tipo === 'interno';
+    }
+
+    public function mensajes()
+    {
+        return $this->hasMany(MensajeProyecto::class);
     }
 }

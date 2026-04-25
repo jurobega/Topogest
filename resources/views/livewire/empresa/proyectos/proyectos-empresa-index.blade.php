@@ -43,17 +43,14 @@
                             <label class="text-[9px] font-black uppercase tracking-widest text-[#8B7355] ml-2 mb-3 block italic">Filtrar por Estado</label>
                             <select wire:model.live="estado" class="w-full bg-[#F5F5F0] border-none rounded-xl py-3 px-4 text-xs font-bold focus:ring-2 focus:ring-[#D4AF37]">
                                 <option value="">Todos los estados</option>
-                                <option value="borrador">Borrador</option>
-                                <option value="pendiente_aceptacion">Pendiente Aceptación</option>
-                                <option value="activo">Activo</option>
-                                <option value="entregado">Entregado</option>
-                                <option value="cerrado">Cerrado</option>
-                                <option value="rechazado">Rechazado</option>
+                                @foreach ( $estados as $item )
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div>
-                            <label class="text-[9px] font-black uppercase tracking-widest text-[#8B7355] ml-2 mb-3 block italic">Prioridad de Visualización</label>
+                            <label class="text-[9px] font-black uppercase tracking-widest text-[#8B7355] ml-2 mb-3 block italic">Ordenar Por</label>
                             <select wire:model.live="orden" class="w-full bg-[#F5F5F0] border-none rounded-xl py-3 px-4 text-xs font-bold focus:ring-2 focus:ring-[#D4AF37]">
                                 <option value="reciente">Más reciente</option>
                                 <option value="antiguo">Más antiguo</option>
@@ -63,7 +60,7 @@
                     </div>
 
                     <div class="mt-10 pt-6 border-t border-gray-50">
-                        <button wire:click="$set('buscar', ''), $set('estado', '')" class="w-full text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-red-500 transition-colors">
+                        <button wire:click="limpiarSeleccion" class="w-full text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-red-500 transition-colors">
                             Limpiar Selección
                         </button>
                     </div>
@@ -133,10 +130,10 @@
                                     </div>
                                 @endif
 
-                                <button wire:click="mostrarDetalle({{ $proyecto->id }})" 
+                                <a href="{{ route('empresa.proyectos.detalle' , $proyecto) }}" 
                                     class="flex-1 md:flex-none bg-[#2D1B0F] text-[#D4AF37] px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-[#8B7355] hover:text-white transition-all shadow-lg shadow-[#2D1B0F]/10">
                                     Ver detalle
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
