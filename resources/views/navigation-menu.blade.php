@@ -2,22 +2,20 @@
     class="fixed left-0 top-0 h-screen w-64 bg-[#2D1B0F] text-white flex flex-col shadow-2xl z-50">
 
     <div class="shrink-0 flex items-center justify-center h-24 border-b border-[#3D2B1F]">
-    @auth
-        <a href="{{ Auth::user()->dashboardRoute() }}" class="flex flex-col items-center group">
-            <img src="{{ asset('img/logo_topogest.png') }}" 
-                 alt="TopoGest" 
-                 class="block h-24 w-auto transition-transform group-hover:scale-110" />
-            <span class="mt-2 text-xs font-black tracking-[0.3em] uppercase text-[#D4AF37]">TopoGest</span>
-        </a>
-    @else
-        <a href="{{ url('/') }}" class="flex flex-col items-center group">
-            <img src="{{ asset('img/logo_topogest.png') }}" 
-                 alt="TopoGest" 
-                 class="block h-24 w-auto transition-transform group-hover:scale-110" />
-            <span class="mt-2 text-xs font-black tracking-[0.3em] uppercase text-[#D4AF37]">TopoGest</span>
-        </a>
-    @endauth
-</div>
+        @auth
+            <a href="{{ Auth::user()->dashboardRoute() }}" class="flex flex-col items-center group">
+                <img src="{{ asset('img/logo_topogest.png') }}" alt="TopoGest"
+                    class="block h-24 w-auto transition-transform group-hover:scale-110" />
+                <span class="mt-2 text-xs font-black tracking-[0.3em] uppercase text-[#D4AF37]">TopoGest</span>
+            </a>
+        @else
+            <a href="{{ url('/') }}" class="flex flex-col items-center group">
+                <img src="{{ asset('img/logo_topogest.png') }}" alt="TopoGest"
+                    class="block h-24 w-auto transition-transform group-hover:scale-110" />
+                <span class="mt-2 text-xs font-black tracking-[0.3em] uppercase text-[#D4AF37]">TopoGest</span>
+            </a>
+        @endauth
+    </div>
 
     <div class="flex-grow px-4 py-6 space-y-3 overflow-y-auto custom-scrollbar flex flex-col">
         <p class="text-[10px] font-black uppercase tracking-[0.2em] text-[#8B7355] mb-2 px-4">Menú Principal</p>
@@ -31,54 +29,62 @@
 
         @auth
             @if (Auth::user()->role == 'cliente')
-            <x-nav-link href="{{ Auth::user()->dashboardRoute() }}" :active="request()->routeIs('*.dashboard')"
-                class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('*.dashboard') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
-                <i
-                    class="fa-solid fa-chart-pie mr-3 text-lg {{ request()->routeIs('*.dashboard') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
-                <span class="uppercase tracking-widest text-[11px]">Panel de Control</span>
-            </x-nav-link>
-            <x-nav-link href="{{ route('cliente.solicitudes.index') }}" :active="request()->routeIs('cliente.solicitudes.*')"
-                class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('cliente.solicitudes.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+                <x-nav-link href="{{ Auth::user()->dashboardRoute() }}" :active="request()->routeIs('*.dashboard')"
+                    class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('*.dashboard') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+                    <i
+                        class="fa-solid fa-chart-pie mr-3 text-lg {{ request()->routeIs('*.dashboard') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                    <span class="uppercase tracking-widest text-[11px]">Panel de Control</span>
+                </x-nav-link>
+                <x-nav-link href="{{ route('cliente.solicitudes.index') }}" :active="request()->routeIs('cliente.solicitudes.*')"
+                    class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('cliente.solicitudes.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
 
-                <i
-                    class="fa-solid fa-file-lines mr-3 text-lg {{ request()->routeIs('cliente.solicitudes.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                    <i
+                        class="fa-solid fa-file-lines mr-3 text-lg {{ request()->routeIs('cliente.solicitudes.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
 
-                <span class="uppercase tracking-widest text-[11px]">Solicitudes</span>
-            </x-nav-link>
-            <x-nav-link href="{{ route('cliente.proyectos.index') }}" :active="request()->routeIs('cliente.proyectos.*')"
-                class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('cliente.proyectos.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+                    <span class="uppercase tracking-widest text-[11px]">Solicitudes</span>
+                </x-nav-link>
+                <x-nav-link href="{{ route('cliente.proyectos.index') }}" :active="request()->routeIs('cliente.proyectos.*')"
+                    class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('cliente.proyectos.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
 
-               <i class="fa-solid fa-map-location-dot mr-3 text-lg {{ request()->routeIs('cliente.proyectos.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
-                <span class="uppercase tracking-widest text-[11px]">Proyectos</span>
-            </x-nav-link>
+                    <i
+                        class="fa-solid fa-map-location-dot mr-3 text-lg {{ request()->routeIs('cliente.proyectos.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                    <span class="uppercase tracking-widest text-[11px]">Proyectos</span>
+                </x-nav-link>
             @endif
 
             @if (Auth::user()->role == 'empresa')
                 <x-nav-link href="{{ Auth::user()->dashboardRoute() }}" :active="request()->routeIs('*.dashboard')"
-                class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('*.dashboard') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
-                <i
-                    class="fa-solid fa-chart-pie mr-3 text-lg {{ request()->routeIs('*.dashboard') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
-                <span class="uppercase tracking-widest text-[11px]">Panel de Control</span>
-            </x-nav-link>
-            <x-nav-link href="{{ route('empresa.solicitudes.index') }}" :active="request()->routeIs('empresa.solicitudes.*')"
-                class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('empresa.solicitudes.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+                    class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('*.dashboard') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+                    <i
+                        class="fa-solid fa-chart-pie mr-3 text-lg {{ request()->routeIs('*.dashboard') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                    <span class="uppercase tracking-widest text-[11px]">Panel de Control</span>
+                </x-nav-link>
+                <x-nav-link href="{{ route('empresa.solicitudes.index') }}" :active="request()->routeIs('empresa.solicitudes.*')"
+                    class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('empresa.solicitudes.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
 
-                <i
-                    class="fa-solid fa-file-lines mr-3 text-lg {{ request()->routeIs('empresa.solicitudes.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                    <i
+                        class="fa-solid fa-file-lines mr-3 text-lg {{ request()->routeIs('empresa.solicitudes.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
 
-                <span class="uppercase tracking-widest text-[11px]">Solicitudes</span>
-            </x-nav-link>
-            <x-nav-link href="{{ route('empresa.proyectos.index') }}" :active="request()->routeIs('empresa.proyectos.*')"
-                class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('empresa.proyectos.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+                    <span class="uppercase tracking-widest text-[11px]">Solicitudes</span>
+                </x-nav-link>
+                <x-nav-link href="{{ route('empresa.proyectos.index') }}" :active="request()->routeIs('empresa.proyectos.*')"
+                    class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('empresa.proyectos.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
 
-               <i class="fa-solid fa-map-location-dot mr-3 text-lg {{ request()->routeIs('empresa.proyectos.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
-                <span class="uppercase tracking-widest text-[11px]">Proyectos</span>
-            </x-nav-link>
+                    <i
+                        class="fa-solid fa-map-location-dot mr-3 text-lg {{ request()->routeIs('empresa.proyectos.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                    <span class="uppercase tracking-widest text-[11px]">Proyectos</span>
+                </x-nav-link>
             @endif
 
             @if (Auth::user()->role == 'admin')
                 <div class="pt-4">
                     <p class="text-[10px] font-black uppercase tracking-[0.2em] text-[#8B7355] mb-2 px-4">Administración</p>
+                    <x-nav-link href="{{ Auth::user()->dashboardRoute() }}" :active="request()->routeIs('*.dashboard')"
+                        class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('*.dashboard') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+                        <i
+                            class="fa-solid fa-chart-pie mr-3 text-lg {{ request()->routeIs('*.dashboard') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                        <span class="uppercase tracking-widest text-[11px]">Panel de Control</span>
+                    </x-nav-link>
                     <x-nav-link href="{{ route('admin.servicios.index') }}" :active="request()->routeIs('admin.servicios.*')"
                         class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('admin.servicios.*') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
                         <i
@@ -110,11 +116,14 @@
             </div>
 
             <div class="space-y-1">
-                <a href="{{ route('profile.show') }}"
-                    class="flex items-center px-3 py-2 text-[10px] font-bold text-[#8B7355] uppercase tracking-widest hover:text-[#D4AF37] transition-colors group">
-                    <i class="fa-solid fa-user-gear mr-2 transition-transform group-hover:scale-110"></i>
-                    Ajustes Perfil
-                </a>
+                @if (Auth::user()->role == 'empresa' || Auth::user()->role == 'cliente')
+                    <a href="{{ route('profile.show') }}"
+                        class="flex items-center px-3 py-2 text-[10px] font-bold text-[#8B7355] uppercase tracking-widest hover:text-[#D4AF37] transition-colors group">
+                        <i class="fa-solid fa-user-gear mr-2 transition-transform group-hover:scale-110"></i>
+                        Ajustes Perfil
+                    </a>
+                @endif
+
 
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf

@@ -10,10 +10,9 @@ class PerfilEmpresa extends Model
     /** @use HasFactory<\Database\Factories\PerfilEmpresaFactory> */
     use HasFactory;
 
-      protected $table = 'perfiles_empresa';
+    protected $table = 'perfiles_empresa';
 
     protected $fillable = [
-        'user_id',
         'nombre_fiscal',
         'nif_cif',
         'descripcion',
@@ -21,6 +20,12 @@ class PerfilEmpresa extends Model
         'telefono',
         'logo_path',
         'visible_directorio',
+        'web',               
+        'zona_actuacion',     
+        'numero_proyectos',   
+        'horario_atencion',   
+        'anios_experiencia',
+        'direccion',
     ];
 
     public function user()

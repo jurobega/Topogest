@@ -3,6 +3,7 @@
 namespace App\Livewire\Empresa;
 
 use App\Models\PerfilEmpresa;
+use App\Models\Servicio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -23,6 +24,7 @@ class ActualizarPerfilEmpresa extends Component
     public ?int $anios_experiencia = null;
     public ?int $numero_proyectos = null;
     public bool $visible_directorio = true;
+    public array $serviciosSeleccionados = [];
 
     public $logo = null;
     public ?string $logoActual = null;
@@ -43,6 +45,7 @@ class ActualizarPerfilEmpresa extends Component
         $this->numero_proyectos  = $perfil->numero_proyectos;
         $this->visible_directorio = $perfil->visible_directorio;
         $this->logoActual        = $perfil->logo_path;
+        $this->serviciosSeleccionados = $perfil->servicios->pluck('id')->toArray();
     }
 
     public function guardar(): void
@@ -66,15 +69,12 @@ class ActualizarPerfilEmpresa extends Component
 
         $rutaLogo = $this->logoActual;
         if ($this->logo) {
-            // Borrar el logo anterior si existe
             if ($this->logoActual) {
                 Storage::disk('public')->delete($this->logoActual);
             }
 
-            // Guardar el nuevo logo
             $rutaLogo = $this->logo->store('logos-empresa', 'public');
 
-            // Sincronizar con users.profile_photo_path
             Auth::user()->forceFill([
                 'profile_photo_path' => $rutaLogo,
             ])->save();
@@ -102,11 +102,14 @@ class ActualizarPerfilEmpresa extends Component
         $this->logoActual = $rutaLogo;
         $this->logo = null;
 
+        $perfil->servicios()->sync($this->serviciosSeleccionados);
+
         $this->dispatch('guardado');
     }
 
     public function render()
     {
-        return view('livewire.empresa.actualizar-perfil-empresa');
+        $servicios = Servicio::all();
+        return view('livewire.empresa.actualizar-perfil-empresa' , compact('servicios'));
     }
 }
