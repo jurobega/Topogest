@@ -18,6 +18,7 @@ class DirectorioEmpresas extends Component
     public function render()
     {
        $empresa = PerfilEmpresa::query()
+            ->where('visible_directorio', true) 
             ->when($this->buscar, function ($query) {
                 $query->where(function ($q) {
                     $q->where('provincia', 'like', "%{$this->buscar}%")

@@ -45,7 +45,6 @@
             </div>
 
             <style>
-                /* Estilizado de la flecha del select para que encaje con TopoGest */
                 select {
                     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%238b7355' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
                     background-position: right 1.5rem center;
@@ -55,7 +54,9 @@
             </style>
         </div>
 
-        @foreach ($empresa as $item)
+
+        @if (count($empresa))
+             @foreach ($empresa as $item)
             <div
                 class="group bg-white rounded-[35px] p-2 mb-8 border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col lg:flex-row items-stretch overflow-hidden">
 
@@ -158,4 +159,9 @@
                 </div>
             </div>
         @endforeach
+
+        @else
+            <x-mios.aviso>No se ha encontrado ninguna emrpesa con ese nombre o con esos servicios</x-mios.aviso>
+        @endif
+       
     </div>

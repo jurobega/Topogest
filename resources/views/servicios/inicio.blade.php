@@ -25,7 +25,6 @@
             <tr class="group hover:bg-[#F5F5F0]/50 transition-all duration-200">
                 <td class="px-8 py-6">
                     <div class="flex items-center">
-                        {{-- Un punto decorativo que refuerza el color de marca --}}
                         <div class="w-2 h-2 rounded-full bg-[#D4AF37] mr-4 shadow-[0_0_8px_rgba(212,175,55,0.5)]"></div>
                         <span class="font-bold text-[#2D1B0F] text-base">{{ $item->nombre }}</span>
                     </div>
