@@ -44,6 +44,7 @@ class ConvertirSolicitud extends Component
 
         $this->solicitud->update(['estado' => 'convertida']);
         $this->dispatch('solicitudConvertida');
+        $this->dispatch('mensaje' , 'Proyecto creado correctamente y a espera de confirmacion');
         $this->cancelar();
     }
 

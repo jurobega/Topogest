@@ -225,8 +225,10 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <i
-                                            class="fa-solid fa-download text-gray-300 group-hover:text-[#D4AF37] text-xs"></i>
+                                            <a href="{{ Storage::url($documento->path) }}" download="{{ $documento->nombre_archivo }}"
+                                                class="w-7 h-7 flex items-center justify-center bg-gray-50 text-gray-400 rounded-lg hover:bg-[#2D1B0F] hover:text-white transition-all">
+                                                <i class="fa-solid fa-download text-[10px]"></i>
+                                            </a>
                                     </div>
                                 @endforeach
                             </div>

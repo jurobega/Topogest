@@ -11,10 +11,10 @@
             </div>
 
             <div class="relative w-full md:flex-1">
-                <label class="absolute -top-2 left-5 bg-white px-2 text-[9px] font-black text-[#8B7355] uppercase tracking-widest">Localización</label>
+                <label class="absolute -top-2 left-5 bg-white px-2 text-[9px] font-black text-[#8B7355] uppercase tracking-widest">Buscar</label>
                 <input type="text" 
-                    wire:model.live="provincia"
-                    placeholder="Escribe una provincia (ej. Almería)..." 
+                    wire:model.live="buscar"
+                    placeholder="Escribe una provincia o una Empresa (ej. Almería)..." 
                     class="w-full bg-[#F5F5F0] border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all text-sm placeholder-gray-400 font-medium">
             </div>
 

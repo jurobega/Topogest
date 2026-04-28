@@ -2,20 +2,22 @@
     class="fixed left-0 top-0 h-screen w-64 bg-[#2D1B0F] text-white flex flex-col shadow-2xl z-50">
 
     <div class="shrink-0 flex items-center justify-center h-24 border-b border-[#3D2B1F]">
-        @auth
-            <a href="{{ Auth::user()->dashboardRoute() }}" class="flex flex-col items-center group">
-                <x-application-mark
-                    class="block h-10 w-auto text-[#D4AF37] fill-current transition-transform group-hover:scale-110" />
-                <span class="mt-2 text-xs font-black tracking-[0.3em] uppercase text-[#D4AF37]">TopoGest</span>
-            </a>
-        @else
-            <a href="{{ url('/') }}" class="flex flex-col items-center group">
-                <x-application-mark
-                    class="block h-10 w-auto text-[#D4AF37] fill-current transition-transform group-hover:scale-110" />
-                <span class="mt-2 text-xs font-black tracking-[0.3em] uppercase text-[#D4AF37]">TopoGest</span>
-            </a>
-        @endauth
-    </div>
+    @auth
+        <a href="{{ Auth::user()->dashboardRoute() }}" class="flex flex-col items-center group">
+            <img src="{{ asset('img/logo_topogest.png') }}" 
+                 alt="TopoGest" 
+                 class="block h-24 w-auto transition-transform group-hover:scale-110" />
+            <span class="mt-2 text-xs font-black tracking-[0.3em] uppercase text-[#D4AF37]">TopoGest</span>
+        </a>
+    @else
+        <a href="{{ url('/') }}" class="flex flex-col items-center group">
+            <img src="{{ asset('img/logo_topogest.png') }}" 
+                 alt="TopoGest" 
+                 class="block h-24 w-auto transition-transform group-hover:scale-110" />
+            <span class="mt-2 text-xs font-black tracking-[0.3em] uppercase text-[#D4AF37]">TopoGest</span>
+        </a>
+    @endauth
+</div>
 
     <div class="flex-grow px-4 py-6 space-y-3 overflow-y-auto custom-scrollbar flex flex-col">
         <p class="text-[10px] font-black uppercase tracking-[0.2em] text-[#8B7355] mb-2 px-4">Menú Principal</p>

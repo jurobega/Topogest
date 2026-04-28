@@ -15,9 +15,10 @@
             <div class="flex items-center gap-4">
                 <div class="bg-white px-6 py-3 rounded-2xl shadow-sm border border-gray-100">
                     <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 text-center">Total Activos</p>
-                    <p class="text-xl font-black text-[#2D1B0F] text-center leading-none">{{ count($proyectos) }}</p>
+                    <p class="text-xl font-black text-[#2D1B0F] text-center leading-none">{{ $numeroProyectos }}</p>
                 </div>
             </div>
+            @livewire('empresa.proyectos.crear-proyecto-externo')
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -93,7 +94,7 @@
                                     {{ $proyecto->nombre }}
                                 </h3>
                                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">
-                                    <i class="fa-solid fa-user-tie mr-1 text-[#8B7355]/50"></i> {{ $proyecto->cliente->nombre_completo }}
+                                    <i class="fa-solid fa-user-tie mr-1 text-[#8B7355]/50"></i> {{ $proyecto->cliente->nombre_completo ?? $proyecto->cliente_externo_nombre ?? 'Cliente externo' }}
                                 </p>
                             </div>
 
@@ -117,12 +118,12 @@
                                         </button>
                                         <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-48 bg-white border border-gray-100 rounded-2xl shadow-xl z-10 overflow-hidden">
                                             @if($proyecto->estado === 'activo')
-                                                <button wire:click="cambiarEstado({{ $proyecto->id }}, 'entregado')" class="w-full text-left px-5 py-3 text-[9px] font-black uppercase tracking-widest text-[#2D1B0F] hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                                                <button wire:click="solicitarCambioEstado({{ $proyecto->id }}, 'entregado')" class="w-full text-left px-5 py-3 text-[9px] font-black uppercase tracking-widest text-[#2D1B0F] hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                                     Marcar Entregado
                                                 </button>
                                             @endif
                                             @if($proyecto->estado === 'entregado')
-                                                <button wire:click="cambiarEstado({{ $proyecto->id }}, 'cerrado')" class="w-full text-left px-5 py-3 text-[9px] font-black uppercase tracking-widest text-[#2D1B0F] hover:bg-gray-100 hover:text-gray-600 transition-colors">
+                                                <button wire:click="solicitarCambioEstado({{ $proyecto->id }}, 'cerrado')" class="w-full text-left px-5 py-3 text-[9px] font-black uppercase tracking-widest text-[#2D1B0F] hover:bg-gray-100 hover:text-gray-600 transition-colors">
                                                     Cerrar Proyecto
                                                 </button>
                                             @endif
@@ -148,7 +149,7 @@
                 @endforelse
 
                 <div class="mt-10">
-                   
+                   {{ $proyectos->links() }}
                 </div>
             </main>
         </div>

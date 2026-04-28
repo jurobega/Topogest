@@ -50,7 +50,7 @@ class ProyectosIndex extends Component
             'estado' => 'activo',
             'fecha_inicio' => now(),
         ]);
-
+        $this->dispatch('mensaje' , 'El Proyecto se ha iniciado correctamente');
         $this->proyecto->refresh();
     }
 

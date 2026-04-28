@@ -84,7 +84,35 @@
             });
         }
 
-        Livewire.on('evtRechazarSolicitud', ({destino})=>confirmarRechazar(destino));
+        Livewire.on('evtRechazarSolicitud', ({ destino }) => confirmarRechazar(destino));
+
+        function confirmarCambioEstado(vistaDestino) {
+            Swal.fire({
+                title: '¿Confirmar cambio de estado?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, confirmar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#2D1B0F',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatchTo(vistaDestino, 'evtCambioEstadoOk');
+                }
+            });
+        }
+
+        Livewire.on('evtConfirmarCambioEstado', ({destino}) => confirmarCambioEstado(destino));
+
+
+        Livewire.on('mensaje', txt => {
+            Swal.fire({
+                icon: "success",
+                title: txt,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        })
     </script>
 
 </body>

@@ -10,7 +10,7 @@
                 <h1 class="text-4xl font-black uppercase tracking-tighter italic flex items-center gap-4">
                     Gestión de Solicitudes
                     <span
-                        class="text-sm bg-[#2D1B0F] text-[#D4AF37] px-4 py-1 rounded-full not-italic tracking-widest">{{ count($solicitudes) }}</span>
+                        class="text-sm bg-[#2D1B0F] text-[#D4AF37] px-4 py-1 rounded-full not-italic tracking-widest">{{ $numeroSolicitudes }}</span>
                 </h1>
             </div>
         </div>
@@ -204,8 +204,10 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <i
-                                                class="fa-solid fa-download text-gray-300 group-hover:text-[#D4AF37] text-xs"></i>
+                                             <a href="{{ Storage::url($documento->path) }}" download="{{ $documento->nombre_archivo }}"
+                                                    class="w-7 h-7 flex items-center justify-center bg-gray-50 text-gray-400 rounded-lg hover:bg-[#2D1B0F] hover:text-white transition-all">
+                                                    <i class="fa-solid fa-download text-[10px]"></i>
+                                                </a>
                                         </div>
                                     @endforeach
                                 </div>

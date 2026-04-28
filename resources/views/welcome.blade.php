@@ -35,9 +35,12 @@
                 Explorar Directorio
                 <div class="absolute inset-0 rounded-2xl border-2 border-[#D4AF37] group-hover:scale-110 opacity-0 group-hover:opacity-100 transition-all"></div>
             </a>
-            <a href="{{ route('register') }}" class="text-white border border-white/20 px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] hover:bg-white hover:text-[#2D1B0F] transition-all">
-                Registrar Empresa
-            </a>
+            @guest
+                <a href="{{ route('register') }}" class="text-white border border-white/20 px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] hover:bg-white hover:text-[#2D1B0F] transition-all">
+                    Registrar Empresa
+                </a> 
+            @endguest
+               
         </div>
 
         <div class="mt-20 flex flex-col items-center gap-4 opacity-40">

@@ -143,11 +143,6 @@
                                             {{ $item->updated_at?->diffForHumans() }}
                                         </p>
                                     </div>
-
-                                    <button
-                                        class="p-3 bg-[#F5F5F0] text-[#2D1B0F] rounded-xl hover:bg-[#2D1B0F] hover:text-white transition-all">
-                                        <i class="fa-solid fa-arrow-right text-xs"></i>
-                                    </button>
                                 </div>
                             </div>
                         @empty
@@ -189,10 +184,7 @@
                                         </p>
                                     </div>
 
-                                    <button
-                                        class="bg-[#2D1B0F] text-white p-4 rounded-2xl hover:scale-110 transition-transform shadow-lg">
-                                        <i class="fa-solid fa-gear text-sm"></i>
-                                    </button>
+                                   
                                 </div>
 
                                 <div class="space-y-4">

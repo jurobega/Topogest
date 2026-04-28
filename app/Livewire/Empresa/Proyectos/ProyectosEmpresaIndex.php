@@ -5,6 +5,7 @@ namespace App\Livewire\Empresa\Proyectos;
 use App\Models\PerfilEmpresa;
 use App\Models\Proyecto;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,6 +18,9 @@ class ProyectosEmpresaIndex extends Component
     public string $estado = "";
 
     public string $orden = "reciente";
+
+    public string $estadoPendiente = "";
+    public ?Proyecto $proyecto = null;
 
 
     public function render()
@@ -40,13 +44,23 @@ class ProyectosEmpresaIndex extends Component
             ->when(!$this->orden || $this->orden === 'reciente', fn($q) => $q->latest())
             ->paginate(10);
 
+        $numeroProyectos = $empresa->proyectos()->count();
 
-        return view('livewire.empresa.proyectos.proyectos-empresa-index', compact('proyectos', 'estados'));
+
+        return view('livewire.empresa.proyectos.proyectos-empresa-index', compact('proyectos', 'estados' , 'numeroProyectos'));
     }
 
-    public function cambiarEstado(int $proyectoId, string $nuevoEstado): void
+
+    public function solicitarCambioEstado(int $proyectoId, string $nuevoEstado): void
     {
-        $proyecto = Proyecto::findOrFail($proyectoId);
+        $this->proyecto = Proyecto::findOrFail($proyectoId);
+        $this->estadoPendiente = $nuevoEstado;
+        $this->dispatch('evtConfirmarCambioEstado' , destino:'empresa.proyectos.proyectos-empresa-index');
+    }
+
+    #[On('evtCambioEstadoOk')]
+    public function cambiarEstado(): void
+    {
 
         $transicionesValidas = [
             'activo' => 'entregado',
@@ -54,12 +68,15 @@ class ProyectosEmpresaIndex extends Component
         ];
 
         abort_if(
-            !isset($transicionesValidas[$proyecto->estado]) ||
-            $transicionesValidas[$proyecto->estado] !== $nuevoEstado,
+            !isset($transicionesValidas[$this->proyecto->estado]) ||
+            $transicionesValidas[$this->proyecto->estado] !== $this->estadoPendiente,
             422
         );
 
-        $proyecto->update(['estado' => $nuevoEstado]);
+        $this->proyecto->update([
+            'estado' => $this->estadoPendiente,
+            'fecha_fin_prevista' => now(),
+            ]);
     }
 
     public function limpiarSeleccion() {

@@ -16,7 +16,7 @@ class ConvertirSolicitudForm extends Form
     #[Validate(['nullable', 'string', 'min:3', 'max:150'])]
     public string $descripcion = "";
 
-    #[Validate(['nullable', 'date'])]
+    #[Validate(['nullable', 'date' , 'after_or_equal:today'])]
     public ?string $fecha_fin_prevista = null;
 
 

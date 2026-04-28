@@ -60,7 +60,9 @@ class SolicitudesEmpresa extends Component
             ->latest()
             ->paginate(10);
 
-        return view('livewire.empresa.solicitudes.solicitudes-empresa', compact('estados', 'servicios', 'solicitudes'));
+        $numeroSolicitudes = $empresa->solicitudes()->count();
+
+        return view('livewire.empresa.solicitudes.solicitudes-empresa', compact('estados', 'servicios', 'solicitudes' , 'numeroSolicitudes'));
     }
 
     public function updatingBuscar()
@@ -114,6 +116,7 @@ class SolicitudesEmpresa extends Component
     public function marcarRechazada()
     {
         $this->solicitud->update(['estado' => 'rechazada']);
+        $this->dispatch('mensaje', 'La solicitud a sido rechazada');
     }
 
 

@@ -32,34 +32,27 @@ class DashboardEmpresaController extends Controller
             ->distinct('cliente_id')
             ->count('cliente_id');
 
-        // Bandeja de entrada: últimas solicitudes
         $ultimasSolicitudes = $empresa->solicitudes()
             ->with(['cliente', 'servicio'])
             ->latest()
             ->take(5)
             ->get();
-
-        // Esperando al cliente
         $esperandoCliente = $empresa->proyectos()
             ->with('cliente')
             ->where('estado', 'pendiente_aceptacion')
             ->latest()
             ->take(5)
             ->get();
-
-        // Proyectos en curso
         $proyectosEnCurso = $empresa->proyectos()
             ->with('cliente')
             ->where('estado', 'activo')
             ->latest()
             ->take(2)
             ->get();
-
-        // Historial de solicitudes
         $historialSolicitudes = $empresa->solicitudes()
             ->with(['cliente', 'servicio'])
             ->latest()
-            ->take(10)
+
             ->get();
 
         return view('empresa.dashboard', compact(

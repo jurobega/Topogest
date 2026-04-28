@@ -46,7 +46,7 @@ class SolicitarServicio extends Component
     public function crearSolicitud(): void
     {
         $this->cform->crearSolicitudForm($this->empresa_id, $this->todos_los_documentos);
-        $this->todos_los_documentos = [];
+        $this->todos_los_documentos = [];   
         $this->cancelar();
         $this->dispatch('mensaje', 'Solicitud Enviada Correctamente');
     }

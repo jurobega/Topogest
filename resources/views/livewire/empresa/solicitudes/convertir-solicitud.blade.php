@@ -43,10 +43,10 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label for="fecha_estimada" class="text-[10px] font-black text-[#2D1B0F] uppercase tracking-widest ml-1">Fecha estimada de entrega</label>
-                    <input type="date" id="fecha_estimada" wire:model="cform.fecha_estimada"
+                    <label for="fecha_fin_prevista" class="text-[10px] font-black text-[#2D1B0F] uppercase tracking-widest ml-1">Fecha estimada de entrega</label>
+                    <input type="date" id="fecha_fin_prevista" wire:model="cform.fecha_fin_prevista"
                         class="w-full bg-white border-2 border-gray-100 rounded-2xl py-4 px-5 text-sm font-bold focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all @error('form.fecha_estimada') border-red-300 @enderror">
-                    @error('cform.fecha_estimada') <span class="text-[10px] font-black text-red-500 uppercase tracking-tighter italic ml-1">{{ $message }}</span> @enderror
+                    @error('cform.fecha_fin_prevista') <span class="text-[10px] font-black text-red-500 uppercase tracking-tighter italic ml-1">{{ $message }}</span> @enderror
                 </div>
             </form>
         </x-slot>
