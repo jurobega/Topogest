@@ -2,7 +2,7 @@
     <x-mios.base>
         <div class="max-w-3xl mx-auto py-8">
             <div class="mb-8 flex items-center justify-between">
-                <a href="{{ route('servicios.index') }}" class="flex items-center text-[10px] font-extrabold text-[#8B7355] hover:text-[#2D1B0F] uppercase tracking-[0.2em] transition-all group">
+                <a href="{{ route('admin.servicios.index') }}" class="flex items-center text-[10px] font-extrabold text-[#8B7355] hover:text-[#2D1B0F] uppercase tracking-[0.2em] transition-all group">
                     <svg class="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
@@ -20,7 +20,7 @@
                         <p class="text-sm text-[#8B7355] mt-2 font-medium">Introduce los datos técnicos para actualizar el catálogo oficial de GeoTerra.</p>
                     </div>
 
-                    <form action="{{ route('servicios.update',$servicio) }}" method="POST" class="space-y-8">
+                    <form action="{{ route('admin.servicios.update',$servicio) }}" method="POST" class="space-y-8">
                         @csrf
                         @method('PUt')
                         <div class="group">
@@ -54,7 +54,7 @@
                         <div class="pt-4 border-t border-gray-50"></div>
 
                         <div class="flex items-center justify-end gap-8">
-                            <a href="{{ route('servicios.index') }}" type="button" class="text-[11px] font-black text-[#8B7355] hover:text-red-600 uppercase tracking-[0.2em] transition-colors">
+                            <a href="{{ route('admin.servicios.index') }}" type="button" class="text-[11px] font-black text-[#8B7355] hover:text-red-600 uppercase tracking-[0.2em] transition-colors">
                                 Cancelar
                             </a>
                             

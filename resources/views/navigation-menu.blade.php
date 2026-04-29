@@ -91,6 +91,19 @@
                             class="fa-solid fa-gears mr-3 text-lg {{ request()->routeIs('admin.servicios.*') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
                         <span class="uppercase tracking-widest text-[11px]">Servicios</span>
                     </x-nav-link>
+                    <x-nav-link href="{{ route('admin.listaempresa') }}" :active="request()->routeIs('admin.listaempresa')"
+                        class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('admin.listaempresa') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+                        <i
+                            class="fa-solid fa-building-user mr-3 text-lg {{ request()->routeIs('admin.listaempresa') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                        <span class="uppercase tracking-widest text-[11px]">Empresas</span>
+                    </x-nav-link>
+
+                    <x-nav-link href="{{ route('admin.listaClientes') }}" :active="request()->routeIs('admin.listaClientes')"
+                        class="w-full flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all duration-200 group border-none {{ request()->routeIs('admin.listaClientes') ? 'bg-[#3D2B1F] !text-white' : '!text-gray-400 hover:bg-[#3D2B1F]/50 hover:!text-white' }}">
+                        <i
+                            class="fa-solid fa-user-group mr-3 text-lg {{ request()->routeIs('admin.listaClientes') ? 'text-[#D4AF37]' : 'text-[#8B7355] group-hover:text-[#D4AF37]' }}"></i>
+                        <span class="uppercase tracking-widest text-[11px]">Clientes</span>
+                    </x-nav-link>
                 </div>
             @endif
         @endauth

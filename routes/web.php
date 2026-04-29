@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Cliente\DashboardClienteController;
 use App\Http\Controllers\Empresa\DashboardEmpresaController;
 use App\Http\Controllers\EmpresaPerfilController;
@@ -7,6 +8,8 @@ use App\Http\Controllers\ServicioController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ClienteMiddleware;
 use App\Http\Middleware\EmpresaMiddleware;
+use App\Livewire\Admin\ListaClientes;
+use App\Livewire\Admin\ListaEmpresas;
 use App\Livewire\Cliente\Proyectos\ProyectosIndex;
 use App\Livewire\Cliente\SolicitarServicio;
 use App\Livewire\Cliente\Solicitudes\SolicitudesIndex;
@@ -29,10 +32,10 @@ Route::middleware([
     
     // Panel Admin
     Route::prefix('admin')->name('admin.')->middleware(AdminMiddleware::class)->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::resource('servicios', ServicioController::class);
+        Route::get('/listaEmpresas' , ListaEmpresas::class)->name('listaempresa');
+        Route::get('/listaClientes' , ListaClientes::class)->name('listaClientes');
     });
 
     // Panel Empresa

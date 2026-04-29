@@ -38,6 +38,7 @@
                 </div>
             </div>
 
+            {{-- FORMULARIO CLIENTE --}}
             <div class="w-1/2 p-16 flex flex-col justify-center bg-white">
                 <div class="mb-10">
                     <h3 class="text-3xl font-black text-[#2D1B0F] uppercase tracking-tighter">Nuevo Cliente</h3>
@@ -51,37 +52,48 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div class="col-span-2">
                             <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">Nombre Completo</label>
-                            <input type="text" name="name" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required placeholder="Juan Pérez García">
+                            <input type="text" name="name" value="{{ old('name') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required placeholder="Juan Pérez García">
+                            <x-input-error for="name" class="mt-1" />
                         </div>
                         <div>
                             <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">NIF / NIE</label>
-                            <input type="text" name="nif_nie" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <input type="text" name="nif_nie" value="{{ old('nif_nie') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <x-input-error for="nif_nie" class="mt-1" />
                         </div>
                         <div>
                             <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">Teléfono</label>
-                            <input type="tel" name="telefono" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <input type="tel" name="telefono" value="{{ old('telefono') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <x-input-error for="telefono" class="mt-1" />
                         </div>
                     </div>
 
                     <div>
                         <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">Dirección Particular</label>
-                        <input type="text" name="direccion" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                        <input type="text" name="direccion" value="{{ old('direccion') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                        <x-input-error for="direccion" class="mt-1" />
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">Provincia</label>
-                            <input type="text" name="provincia" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <input type="text" name="provincia" value="{{ old('provincia') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <x-input-error for="provincia" class="mt-1" />
                         </div>
                         <div>
                             <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">Email Acceso</label>
-                            <input type="email" name="email" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <input type="email" name="email" value="{{ old('email') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <x-input-error for="email" class="mt-1" />
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4 pt-2">
-                        <input type="password" name="password" placeholder="Contraseña" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
-                        <input type="password" name="password_confirmation" placeholder="Confirmar" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
+                        <div>
+                            <input type="password" name="password" placeholder="Contraseña" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
+                            <x-input-error for="password" class="mt-1" />
+                        </div>
+                        <div>
+                            <input type="password" name="password_confirmation" placeholder="Confirmar" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
+                        </div>
                     </div>
 
                     <button type="submit" class="w-full bg-[#2D1B0F] text-[#D4AF37] py-4 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] shadow-2xl hover:bg-[#1A0F08] transition-all transform hover:scale-[1.02] mt-6">
@@ -90,6 +102,7 @@
                 </form>
             </div>
 
+            {{-- FORMULARIO EMPRESA --}}
             <div class="w-1/2 p-16 flex flex-col justify-center bg-white">
                 <div class="mb-10 text-right">
                     <h3 class="text-3xl font-black text-[#2D1B0F] uppercase tracking-tighter">Nueva Empresa</h3>
@@ -103,46 +116,60 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div class="col-span-1">
                             <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">Nombre Fiscal</label>
-                            <input type="text" name="nombre_fiscal" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <input type="text" name="nombre_fiscal" value="{{ old('nombre_fiscal') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <x-input-error for="nombre_fiscal" class="mt-1" />
                         </div>
                         <div class="col-span-1">
                             <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">CIF / NIF</label>
-                            <input type="text" name="nif_cif" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <input type="text" name="nif_cif" value="{{ old('nif_cif') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <x-input-error for="nif_cif" class="mt-1" />
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">Provincia</label>
-                            <input type="text" name="provincia" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <input type="text" name="provincia" value="{{ old('provincia') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <x-input-error for="provincia" class="mt-1" />
                         </div>
                         <div>
                             <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">Teléfono Corp.</label>
-                            <input type="tel" name="telefono" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <input type="tel" name="telefono" value="{{ old('telefono') }}" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all shadow-sm" required>
+                            <x-input-error for="telefono" class="mt-1" />
                         </div>
                     </div>
 
                     <div>
                         <label class="text-[10px] font-black text-[#8B7355] uppercase tracking-widest mb-1 block">Breve Descripción</label>
-                        <textarea name="descripcion" rows="2" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm text-sm"></textarea>
+                        <textarea name="descripcion" rows="2" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm text-sm">{{ old('descripcion') }}</textarea>
+                        <x-input-error for="descripcion" class="mt-1" />
                     </div>
 
                     <div class="bg-[#F5F5F0] p-4 rounded-2xl flex items-center justify-between gap-4">
                         <div class="flex flex-col">
                             <label class="text-[9px] font-black text-[#8B7355] uppercase tracking-[0.2em]">Logo de Empresa</label>
                             <input type="file" name="logo" class="text-[10px] mt-1 text-gray-500">
+                            <x-input-error for="logo" class="mt-1" />
                         </div>
                         <div class="flex flex-col items-center border-l border-gray-200 pl-4">
                             <span class="text-[9px] font-black text-[#8B7355] uppercase tracking-[0.2em] mb-1">Visible</span>
-                            <input type="checkbox" name="visible" value="1" class="rounded border-none bg-white text-[#D4AF37] focus:ring-[#D4AF37] w-5 h-5 shadow-sm">
+                            <input type="checkbox" name="visible" value="1" {{ old('visible') ? 'checked' : '' }} class="rounded border-none bg-white text-[#D4AF37] focus:ring-[#D4AF37] w-5 h-5 shadow-sm">
                         </div>
                     </div>
 
-                    <input type="email" name="email" placeholder="Correo Corporativo" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
+                    <div>
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Correo Corporativo" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
+                        <x-input-error for="email" class="mt-1" />
+                    </div>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="password" name="password" placeholder="Contraseña" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
-                        <input type="password" name="password_confirmation" placeholder="Confirmar" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
+                        <div>
+                            <input type="password" name="password" placeholder="Contraseña" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
+                            <x-input-error for="password" class="mt-1" />
+                        </div>
+                        <div>
+                            <input type="password" name="password_confirmation" placeholder="Confirmar" class="w-full bg-[#F5F5F0] border-none rounded-2xl py-3 px-4 focus:ring-2 focus:ring-[#D4AF37]/30 shadow-sm" required>
+                        </div>
                     </div>
 
                     <button type="submit" class="w-full bg-[#D4AF37] text-[#2D1B0F] py-4 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] shadow-2xl hover:bg-[#B8962D] transition-all transform hover:scale-[1.02] mt-4">
@@ -155,7 +182,6 @@
     </div>
 
     <style>
-        /* Personalización de inputs para que no se vean genéricos */
         input::placeholder { color: #A0A090; font-weight: 500; font-size: 0.8rem; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
